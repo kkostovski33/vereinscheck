@@ -104,6 +104,11 @@ def index():
     )
 
 
+@app.route("/datenschutz")
+def datenschutz():
+    return render_template("datenschutz.html")
+
+
 @app.route("/bericht", methods=["POST"])
 def bericht():
     url_eingabe = request.form.get("url", "").strip()

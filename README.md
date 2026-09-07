@@ -1,77 +1,96 @@
 # VereinsCheck
 
-**Verständlicher IT-Sicherheits-Check für Vereine – Open Source, ohne Fachchinesisch.**
+**Kostenloser IT-Sicherheits-Check für deutsche Vereine — verständlich, ohne Fachchinesisch.**
 
-VereinsCheck prüft die Website eines Vereins in unter 2 Minuten auf grundlegende
-IT-Sicherheit und gibt eine verständliche **Ampel-Bewertung** statt Fachjargon aus.
+VereinsCheck prüft die Website eines Vereins in unter 2 Minuten auf grundlegende IT-Sicherheit und Datenschutz. Die Ergebnisse werden als Ampel-Bewertung mit konkreten Handlungsempfehlungen auf Deutsch ausgegeben — auch ohne IT-Kenntnisse verständlich.
 
-Hintergrund: Rund 600.000 Vereine in Deutschland werden ehrenamtlich geführt,
-Vorstände wechseln oft alle 1–2 Jahre. Mit jedem Wechsel geht IT-Wissen verloren.
-VereinsCheck soll diese Lücke schließen.
+Ein automatisch generierter **PDF-Bericht** kann direkt an den Webmaster weitergeleitet werden.
+
+---
 
 ## Was wird geprüft?
 
 | Check | Was er bedeutet |
 |---|---|
-| **HTTPS-Verschlüsselung** | Ist die Seite über HTTPS erreichbar und das Zertifikat gültig / nicht bald abgelaufen? |
-| **Security-Header** | Setzt die Seite wichtige Schutz-Header (HSTS, CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy)? |
-| **Tracking & Cookies** | Werden bekannte Tracker geladen, und gibt es ein Cookie-/Consent-Tool? |
+| **HTTPS & Zertifikat** | Ist die Verbindung verschlüsselt? Ist das Zertifikat gültig und noch nicht abgelaufen? |
+| **Security-Header** | Sind die 5 wichtigsten Server-Schutzeinstellungen aktiv? (HSTS, CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy) |
+| **Tracking & DSGVO** | Werden Besucher von Google, Meta oder anderen ohne Einwilligung getrackt? |
+| **Formular-Sicherheit** | Werden Mitgliedsdaten und IBANs verschlüsselt übertragen? |
 
-Die Ausgabe erfolgt als Ampel: **grün** (alles gut), **gelb** (Verbesserungspotenzial),
-**rot** (dringender Handlungsbedarf).
+---
 
-## Installation
+## Warum VereinsCheck?
+
+Über 600.000 Vereine in Deutschland verwalten sensible Mitgliederdaten — aber kaum einer hat Budget für IT-Sicherheitsberatung. Bestehende Tools wie Mozilla Observatory oder SSL Labs sind für Entwickler gemacht: technische Rohdaten, kein Kontext, kein Handlungsplan.
+
+VereinsCheck schließt diese Lücke: **kein Englisch, kein Fachjargon, keine IT-Kenntnisse nötig.**
+
+---
+
+## Datenschutz
+
+VereinsCheck speichert **keine** eingegebenen URLs, keine Scan-Ergebnisse, keine IP-Adressen, keine Cookies. Jede Anfrage wird vollständig im Arbeitsspeicher verarbeitet und danach verworfen. Es gibt keine Datenbank.
+
+→ [Datenschutzerklärung](https://vereinscheck.de/datenschutz) *(nach Launch verfügbar)*
+
+---
+
+## Installation & lokale Nutzung
 
 ```bash
 git clone https://github.com/kkostovski33/vereinscheck.git
 cd vereinscheck
+python -m venv .venv
+source .venv/bin/activate      # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
+python app.py
 ```
 
-## Nutzung
+Dann im Browser öffnen: [http://localhost:8080](http://localhost:8080)
 
-```bash
-python scanner.py https://www.mein-verein.de
-```
+### Voraussetzungen
 
-Beispiel-Ausgabe:
+- Python 3.10+
+- macOS: Arial Unicode.ttf ist unter `/System/Library/Fonts/Supplemental/` vorhanden (für PDF-Export)
 
-```
-============================================================
-  VereinsCheck – Sicherheits-Check fuer: www.mein-verein.de
-============================================================
-
-[ GRUEN ]  HTTPS-Verschluesselung
-          HTTPS ist aktiv und das Zertifikat ist noch 57 Tage gueltig.
-
-[ ROT   ]  Security-Header
-          Nur 1 von 5 Security-Headern gesetzt. Es fehlen: ...
-```
+---
 
 ## Projektstruktur
 
 ```
 vereinscheck/
-├── scanner.py           # Startpunkt: lädt die Seite und gibt die Ampel aus
-├── checks/              # Ein Modul pro Prüfung (im Team parallel erweiterbar)
-│   ├── ssl_check.py     # HTTPS / Zertifikat
+├── app.py               # Flask-App, Routen
+├── bericht.py           # PDF-Generator (fpdf2)
+├── checks/
+│   ├── ssl_check.py     # HTTPS & Zertifikat
 │   ├── headers_check.py # Security-Header
-│   └── tracking_check.py# Tracking & Cookies
+│   ├── tracking_check.py# Tracking & DSGVO
+│   └── form_check.py    # Formular-Sicherheit
+├── templates/
+│   ├── index.html       # Haupt-Interface
+│   └── datenschutz.html # Datenschutzerklärung
 ├── requirements.txt
-└── README.md
+└── VERSION              # Semantische Versionierung
 ```
-
-## Roadmap
-
-- [ ] **Formular-Check** für Spenden-/Mitgliedsformulare (nächster Schritt)
-- [ ] Klartext-Report im Ampel-Format zum Weitergeben
-- [ ] Übergabe-Checkliste für den nächsten Vorstand
-- [ ] Minimalistisches Web-Frontend
-
-## Lizenz
-
-Open Source. Lizenz folgt (geplant: MIT).
 
 ---
 
-*VereinsCheck ist ein gemeinnütziges Open-Source-Projekt.*
+## Roadmap
+
+- [x] SSL/TLS-Check
+- [x] Security-Header-Check
+- [x] Tracking & DSGVO-Check
+- [x] Formular-Sicherheits-Check
+- [x] PDF-Bericht (weiterleitbar an Webmaster)
+- [x] Datenschutzerklärung
+- [ ] DMARC & DNSSEC-Check
+- [ ] Datenschutzerklärung-Erkennung auf Zielseite
+- [ ] Öffentliches Hosting unter eigener Domain
+- [ ] Automatisches E-Mail-Monitoring für Vereine
+- [ ] WordPress-Plugin
+
+---
+
+## Lizenz
+
+MIT — siehe [LICENSE](LICENSE)

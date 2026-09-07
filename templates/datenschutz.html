@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Datenschutz – VereinsCheck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-bg:        #F8FAFC;
+      --color-surface:   #FFFFFF;
+      --color-primary:   #0F172A;
+      --color-accent:    #0369A1;
+      --color-muted:     #475569;
+      --color-border:    #E2E8F0;
+      --font-head: "Lexend", system-ui, sans-serif;
+      --font-body: "Source Sans 3", system-ui, sans-serif;
+      --radius:    10px;
+      --radius-lg: 14px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      color: var(--color-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .nav {
+      max-width: 720px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 1.5rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header { border-bottom: 1px solid var(--color-border); background: var(--color-surface); }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-family: var(--font-head);
+      font-weight: 600;
+      font-size: .95rem;
+      color: var(--color-primary);
+      text-decoration: none;
+      letter-spacing: -.2px;
+    }
+    .nav-logo-mark {
+      width: 28px; height: 28px;
+      background: var(--color-primary);
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+    }
+    .nav-logo-mark svg { width: 15px; height: 15px; }
+
+    .page { flex: 1; }
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .breadcrumb {
+      font-size: .8rem;
+      color: var(--color-muted);
+      margin-bottom: 2rem;
+    }
+    .breadcrumb a { color: var(--color-accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    h1 {
+      font-family: var(--font-head);
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -.5px;
+      line-height: 1.2;
+      margin-bottom: .75rem;
+    }
+    .intro-text {
+      font-size: 1.05rem;
+      color: var(--color-muted);
+      margin-bottom: 2.5rem;
+      line-height: 1.65;
+    }
+
+    .highlight-box {
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.4rem;
+      margin-bottom: 2.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .highlight-box svg { width: 20px; height: 20px; color: #166534; flex-shrink: 0; margin-top: .1rem; }
+    .highlight-box p { font-size: .9rem; color: #14532D; line-height: 1.6; }
+    .highlight-box strong { font-weight: 700; display: block; margin-bottom: .2rem; }
+
+    .section {
+      margin-bottom: 2.5rem;
+    }
+    .section h2 {
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: .75rem;
+      padding-bottom: .5rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .section p { font-size: .95rem; color: var(--color-muted); line-height: 1.7; margin-bottom: .6rem; }
+    .section p:last-child { margin-bottom: 0; }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .875rem;
+      margin-top: .75rem;
+    }
+    .data-table th {
+      background: #F8FAFC;
+      border: 1px solid var(--color-border);
+      padding: .6rem .85rem;
+      text-align: left;
+      font-weight: 600;
+      color: var(--color-primary);
+      font-family: var(--font-head);
+      font-size: .8rem;
+    }
+    .data-table td {
+      border: 1px solid var(--color-border);
+      padding: .6rem .85rem;
+      color: var(--color-muted);
+      vertical-align: top;
+    }
+    .badge-no {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      font-size: .72rem;
+      font-weight: 700;
+      background: #F0FDF4;
+      color: #166534;
+      border: 1px solid #BBF7D0;
+      border-radius: 5px;
+      padding: .2rem .5rem;
+    }
+
+    .footer {
+      border-top: 1px solid var(--color-border);
+      padding: 1.5rem 0;
+    }
+    .footer-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: .78rem;
+      color: var(--color-muted);
+    }
+    .footer-inner a { color: var(--color-muted); text-decoration: none; }
+    .footer-inner a:hover { color: var(--color-accent); }
+
+    @media (max-width: 580px) {
+      h1 { font-size: 1.5rem; }
+      .footer-inner { flex-direction: column; gap: .4rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <nav class="nav" aria-label="Hauptnavigation">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+      VereinsCheck
+    </a>
+  </nav>
+</header>
+
+<div class="page">
+  <div class="container">
+
+    <p class="breadcrumb"><a href="/">← Zurück zur Startseite</a></p>
+
+    <h1>Datenschutz</h1>
+    <p class="intro-text">VereinsCheck ist ein Werkzeug, das die Datensicherheit von Vereinswebsites prüft. Es wäre widersprüchlich, dabei selbst Daten zu sammeln — deshalb tun wir es nicht.</p>
+
+    <div class="highlight-box" role="note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+      <div>
+        <strong>Kurz und klar: VereinsCheck speichert nichts.</strong>
+        <p>Keine eingegebenen URLs, keine Scan-Ergebnisse, keine IP-Adressen, keine Cookies. Jede Anfrage wird vollständig im Arbeitsspeicher verarbeitet und danach verworfen. Es gibt keine Datenbank.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Was passiert bei einem Scan?</h2>
+      <p>Wenn du eine Website-Adresse eingibst und auf „Jetzt prüfen" klickst, stellt VereinsCheck im Hintergrund eine Verbindung zur eingegebenen Website her — genau wie es ein Browser tun würde. Die dabei gesammelten technischen Daten (z.B. welche Sicherheits-Header gesetzt sind) werden ausgewertet und sofort als Ergebnis angezeigt.</p>
+      <p>Danach werden alle Daten gelöscht. Es werden keine Logs geschrieben, keine Einträge gespeichert, keine Statistiken erhoben.</p>
+    </div>
+
+    <div class="section">
+      <h2>Was VereinsCheck nicht tut</h2>
+      <table class="data-table" aria-label="Datenschutz-Übersicht">
+        <thead>
+          <tr>
+            <th>Datentyp</th>
+            <th>Wird gespeichert?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Eingegebene URL</td>
+            <td><span class="badge-no">✓ Nein</span></td>
+          </tr>
+          <tr>
+            <td>Scan-Ergebnisse</td>
+            <td><span class="badge-no">✓ Nein</span></td>
+          </tr>
+          <tr>
+            <td>IP-Adresse des Nutzers</td>
+            <td><span class="badge-no">✓ Nein</span></td>
+          </tr>
+          <tr>
+            <td>Cookies</td>
+            <td><span class="badge-no">✓ Nein</span></td>
+          </tr>
+          <tr>
+            <td>Tracking (Google Analytics etc.)</td>
+            <td><span class="badge-no">✓ Nein</span></td>
+          </tr>
+          <tr>
+            <td>Nutzerkonten / Registrierung</td>
+            <td><span class="badge-no">✓ Nein</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>Externe Verbindungen</h2>
+      <p>Beim Laden dieser Seite werden Google Fonts (Lexend, Source Sans 3) von <code>fonts.googleapis.com</code> geladen. Das ist die einzige externe Verbindung. Dabei überträgt dein Browser eine Anfrage an Google, was mit einer IP-Adresse verbunden ist. Wenn du das vermeiden möchtest, kannst du die Seite im Browser mit deaktiviertem JavaScript oder über einen Font-Blocker nutzen — die Funktion des Scanners wird davon nicht beeinträchtigt.</p>
+    </div>
+
+    <div class="section">
+      <h2>PDF-Bericht</h2>
+      <p>Der herunterladbare PDF-Bericht wird vollständig auf dem Server erstellt und direkt an deinen Browser übertragen. Er wird nicht gespeichert. Du kannst ihn anschließend lokal speichern und weiterleiten.</p>
+    </div>
+
+    <div class="section">
+      <h2>Open Source</h2>
+      <p>VereinsCheck ist vollständig Open Source (MIT-Lizenz). Der gesamte Quellcode ist auf <a href="https://github.com/kkostovski33/vereinscheck" style="color:var(--color-accent)">GitHub</a> einsehbar — damit kannst du selbst prüfen, was die Software tut und was nicht.</p>
+    </div>
+
+    <div class="section">
+      <h2>Verantwortlich</h2>
+      <p>Kristijan Kostovski<br/>
+      Kontakt: <a href="mailto:kkostovski33@gmail.com" style="color:var(--color-accent)">kkostovski33@gmail.com</a></p>
+    </div>
+
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>© 2025 VereinsCheck — Open Source</span>
+    <a href="/">Zurück zur Startseite</a>
+  </div>
+</footer>
+
+</body>
+</html>
