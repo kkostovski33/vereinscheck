@@ -1,0 +1,15 @@
+# Interne Planungs- und Strategie-Notizen (NICHT veröffentlichen)
+VereinsCheck_Fortschritt.md
+Zusammenfassung-Verein-Foerderung.md
+*.md.bak
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Editor / OS
+.vscode/
+.DS_Store
