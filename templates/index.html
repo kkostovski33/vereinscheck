@@ -3,200 +3,1225 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VereinsCheck – Kostenloser IT-Sicherheits-Check</title>
+  <title>VereinsCheck – IT-Sicherheit für Vereine</title>
+
+  <!-- Lexend (Headings) + Source Sans 3 (Body) — Corporate Trust pairing -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+
   <style>
+    /* ── Tokens ────────────────────────────────────── */
+    :root {
+      --color-bg:         #F8FAFC;
+      --color-surface:    #FFFFFF;
+      --color-primary:    #0F172A;
+      --color-accent:     #0369A1;
+      --color-accent-hi:  #0284C7;
+      --color-muted:      #475569;
+      --color-border:     #E2E8F0;
+      --color-border-hi:  #CBD5E1;
+
+      --color-ok:         #166534;
+      --color-ok-bg:      #F0FDF4;
+      --color-ok-border:  #BBF7D0;
+      --color-warn:       #92400E;
+      --color-warn-bg:    #FFFBEB;
+      --color-warn-border:#FDE68A;
+      --color-err:        #991B1B;
+      --color-err-bg:     #FEF2F2;
+      --color-err-border: #FECACA;
+
+      --font-head: "Lexend", system-ui, sans-serif;
+      --font-body: "Source Sans 3", system-ui, sans-serif;
+      --font-mono: "SFMono-Regular", "Consolas", monospace;
+
+      --radius-sm: 6px;
+      --radius:    10px;
+      --radius-lg: 14px;
+
+      --shadow-sm: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
+      --shadow:    0 4px 16px rgba(0,0,0,.08), 0 1px 4px rgba(0,0,0,.04);
+    }
+
+    /* ── Reset ─────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+    html { scroll-behavior: smooth; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #f4f6f9;
-      color: #1a1a2e;
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      color: var(--color-primary);
       min-height: 100vh;
-    }
-
-    header {
-      background: #1a1a2e;
-      color: #fff;
-      padding: 2rem 1rem;
-      text-align: center;
-    }
-    header h1 { font-size: 2rem; letter-spacing: -0.5px; }
-    header p  { margin-top: .4rem; color: #a0aec0; font-size: .95rem; }
-
-    main {
-      max-width: 700px;
-      margin: 2.5rem auto;
-      padding: 0 1rem;
-    }
-
-    /* --- Eingabebereich --- */
-    .card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(0,0,0,.08);
-      padding: 2rem;
-    }
-
-    .input-row {
       display: flex;
-      gap: .6rem;
-      margin-top: .8rem;
+      flex-direction: column;
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
     }
-    .input-row input[type="text"] {
-      flex: 1;
-      padding: .75rem 1rem;
-      border: 2px solid #e2e8f0;
-      border-radius: 8px;
-      font-size: 1rem;
-      transition: border-color .2s;
-      outline: none;
-    }
-    .input-row input[type="text"]:focus { border-color: #4f6ef7; }
 
-    .btn {
-      padding: .75rem 1.4rem;
-      background: #4f6ef7;
+    /* ── Skip link (accessibility) ─────────────────── */
+    .skip-link {
+      position: absolute;
+      top: -99px;
+      left: 1rem;
+      background: var(--color-accent);
+      color: #fff;
+      padding: .5rem 1rem;
+      border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+      font-size: .875rem;
+      font-weight: 600;
+      z-index: 100;
+      text-decoration: none;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ── Nav ────────────────────────────────────────── */
+    .nav {
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding: 0 2rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .nav-logo {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: .95rem;
+      letter-spacing: -.3px;
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      text-decoration: none;
+    }
+    .nav-logo-mark {
+      width: 26px; height: 26px;
+      background: var(--color-accent);
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .nav-logo-mark svg { width: 14px; height: 14px; color: #fff; }
+    .nav-right {
+      font-size: .75rem;
+      color: var(--color-muted);
+      font-family: var(--font-mono);
+      letter-spacing: .02em;
+    }
+
+    /* ── Layout wrapper ─────────────────────────────── */
+    .page {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .container {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ── Hero / Headline ────────────────────────────── */
+    .hero {
+      padding: 4.5rem 0 3rem;
+    }
+    .hero-eyebrow {
+      font-size: .75rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+    }
+    .hero-eyebrow svg { width: 12px; height: 12px; }
+    h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      color: var(--color-primary);
+      max-width: 600px;
+    }
+    h1 .hl {
+      color: var(--color-accent);
+    }
+    .hero-sub {
+      margin-top: 1rem;
+      font-size: 1.05rem;
+      color: var(--color-muted);
+      max-width: 480px;
+      line-height: 1.65;
+    }
+
+    /* ── Search Form ─────────────────────────────────── */
+    .search-block {
+      margin-top: 2.5rem;
+    }
+    .search-label {
+      display: block;
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--color-muted);
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      margin-bottom: .5rem;
+    }
+    .search-row {
+      display: flex;
+      gap: .5rem;
+      max-width: 580px;
+    }
+    .url-input {
+      flex: 1;
+      padding: .8rem 1rem;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-family: var(--font-body);
+      color: var(--color-primary);
+      background: var(--color-surface);
+      outline: none;
+      transition: border-color .15s, box-shadow .15s;
+      min-width: 0;
+    }
+    .url-input::placeholder { color: #94A3B8; }
+    .url-input:focus {
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 3px rgba(3,105,161,.15);
+    }
+    .btn-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .8rem 1.35rem;
+      background: var(--color-accent);
       color: #fff;
       border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 600;
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: .95rem;
+      font-weight: 700;
       cursor: pointer;
       white-space: nowrap;
-      transition: background .2s;
+      transition: background .15s, transform .1s, box-shadow .15s;
+      box-shadow: 0 2px 8px rgba(3,105,161,.25);
     }
-    .btn:hover { background: #3b58e0; }
-    .btn:disabled { background: #a0aec0; cursor: default; }
-
-    .fehler {
-      margin-top: 1rem;
-      padding: .75rem 1rem;
-      background: #fff5f5;
-      border-left: 4px solid #e53e3e;
-      border-radius: 6px;
-      color: #c53030;
+    .btn-submit svg { width: 16px; height: 16px; flex-shrink: 0; transition: transform .15s; }
+    .btn-submit:hover  { background: var(--color-accent-hi); box-shadow: 0 4px 14px rgba(3,105,161,.35); }
+    .btn-submit:hover svg { transform: translateX(2px); }
+    .btn-submit:active { transform: scale(.98); }
+    .btn-submit:focus-visible {
+      outline: 3px solid var(--color-accent);
+      outline-offset: 2px;
     }
-
-    /* --- Ergebnisse --- */
-    .ergebnisse { margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
-
-    .result-card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(0,0,0,.08);
-      padding: 1.25rem 1.5rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
+    .btn-submit:disabled {
+      background: #94A3B8;
+      box-shadow: none;
+      cursor: default;
+      transform: none;
     }
+    .btn-submit:disabled svg { transform: none; }
 
-    .ampel {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      margin-top: .25rem;
-    }
-    .ampel.gruen  { background: #38a169; box-shadow: 0 0 0 4px rgba(56,161,105,.15); }
-    .ampel.gelb   { background: #d69e2e; box-shadow: 0 0 0 4px rgba(214,158,46,.15); }
-    .ampel.rot    { background: #e53e3e; box-shadow: 0 0 0 4px rgba(229,62,62,.15); }
-
-    .result-text h3 { font-size: 1rem; font-weight: 700; margin-bottom: .25rem; }
-    .result-text p  { font-size: .9rem; color: #4a5568; line-height: 1.5; }
-
-    /* --- Fazit-Banner --- */
-    .fazit {
-      margin-top: 1.5rem;
-      padding: 1rem 1.5rem;
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: .95rem;
-    }
-    .fazit.gruen { background: #f0fff4; color: #276749; border-left: 5px solid #38a169; }
-    .fazit.gelb  { background: #fffff0; color: #744210; border-left: 5px solid #d69e2e; }
-    .fazit.rot   { background: #fff5f5; color: #9b2c2c; border-left: 5px solid #e53e3e; }
-
-    /* --- Lade-Animation --- */
     .spinner {
       display: none;
-      width: 20px; height: 20px;
-      border: 3px solid #fff;
-      border-top-color: transparent;
+      width: 15px; height: 15px;
+      border: 2px solid rgba(255,255,255,.35);
+      border-top-color: #fff;
       border-radius: 50%;
-      animation: spin .7s linear infinite;
+      animation: spin .6s linear infinite;
+      flex-shrink: 0;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    footer {
-      text-align: center;
-      padding: 2rem 1rem;
-      color: #a0aec0;
+    .input-error {
+      margin-top: .6rem;
+      font-size: .875rem;
+      color: var(--color-err);
+      display: flex;
+      align-items: center;
+      gap: .35rem;
+    }
+    .input-error svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* ── Divider ─────────────────────────────────────── */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--color-border);
+      margin: 3rem 0 0;
+    }
+
+    /* ── USP vs-block ────────────────────────────────── */
+    .usp-block {
+      padding: 2.5rem 0 0;
+    }
+    .usp-vs {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--color-surface);
+    }
+    .usp-col {
+      flex: 1;
+      padding: 1.25rem 1.4rem;
+    }
+    .usp-col-other { background: #F8FAFC; }
+    .usp-col-vc    { background: #EFF6FF; }
+    .usp-col-label {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--color-muted);
+      margin-bottom: .75rem;
+    }
+    .usp-col-vc .usp-col-label { color: var(--color-accent); }
+    .usp-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .45rem;
+    }
+    .usp-col-other ul li {
+      font-size: .875rem;
+      color: var(--color-muted);
+      display: flex;
+      align-items: baseline;
+      gap: .4rem;
+    }
+    .usp-col-other ul li::before {
+      content: "–";
+      color: #CBD5E1;
+      flex-shrink: 0;
+    }
+    .usp-col-vc ul li {
+      font-size: .875rem;
+      color: var(--color-primary);
+      font-weight: 500;
+      display: flex;
+      align-items: baseline;
+      gap: .4rem;
+    }
+    .usp-col-vc ul li::before {
+      content: "✓";
+      color: var(--color-accent);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .usp-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 .75rem;
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--color-muted);
+      border-left: 1px solid var(--color-border);
+      border-right: 1px solid var(--color-border);
+      background: #fff;
+      flex-shrink: 0;
+    }
+
+    /* ── Warum-Sektion ───────────────────────────────── */
+    .warum-section { padding: 2.5rem 0 0; }
+
+    .warum-eyebrow {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--color-accent);
+      margin-bottom: .6rem;
+    }
+    .warum-h2 {
+      font-family: var(--font-head);
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-weight: 700;
+      letter-spacing: -.5px;
+      line-height: 1.2;
+      color: var(--color-primary);
+      margin-bottom: .75rem;
+    }
+    .warum-lead {
+      font-size: 1rem;
+      color: var(--color-muted);
+      line-height: 1.65;
+      max-width: 560px;
+    }
+    .warum-intro { margin-bottom: 2rem; }
+
+    /* Risiken */
+    .risiken-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .75rem;
+      margin-bottom: 1.75rem;
+    }
+    .risiko-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+    }
+    .risiko-icon {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: .85rem;
+    }
+    .risiko-icon svg { width: 18px; height: 18px; }
+    .risiko-rot  { background: var(--color-err-bg);  color: var(--color-err);  }
+    .risiko-gelb { background: var(--color-warn-bg); color: var(--color-warn); }
+    .risiko-blau { background: #EFF6FF; color: var(--color-accent); }
+    .risiko-card h3 {
+      font-family: var(--font-head);
+      font-size: .92rem;
+      font-weight: 700;
+      margin-bottom: .35rem;
+      color: var(--color-primary);
+    }
+    .risiko-card p {
+      font-size: .82rem;
+      color: var(--color-muted);
+      line-height: 1.6;
+    }
+
+    /* Problem-Block */
+    .problem-block {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: center;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 2rem;
+    }
+    .problem-text h3 {
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -.3px;
+      margin-bottom: .6rem;
+      color: var(--color-primary);
+    }
+    .problem-text p {
+      font-size: .875rem;
+      color: var(--color-muted);
+      line-height: 1.65;
+    }
+    .problem-visual {
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+      min-width: 180px;
+    }
+    .pv-row {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+    }
+    .pv-label {
+      font-size: .72rem;
+      color: var(--color-muted);
+      white-space: nowrap;
+      min-width: 110px;
+    }
+    .pv-dots { display: flex; gap: .3rem; }
+    .pv-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+    }
+    .pv-dot.red    { background: var(--color-err); }
+    .pv-dot.green  { background: #22C55E; }
+    .pv-dot.yellow { background: #EAB308; }
+    .pv-dot.gray   { background: #CBD5E1; }
+    .pv-line {
+      height: 1px;
+      background: var(--color-border);
+      margin: .15rem 0;
+    }
+
+    .checks-intro {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--color-muted);
+      margin-bottom: .75rem;
+    }
+
+    /* ── Empty — What we check ───────────────────────── */
+    .checks-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: .75rem;
+    }
+    .check-item {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.2rem;
+      display: flex;
+      gap: .85rem;
+      align-items: flex-start;
+    }
+    .check-icon {
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: var(--color-accent);
+      background: #E0F2FE;
+    }
+    .check-icon svg { width: 17px; height: 17px; }
+    .check-text h4 {
+      font-family: var(--font-head);
+      font-size: .9rem;
+      font-weight: 600;
+      margin-bottom: .2rem;
+      letter-spacing: -.1px;
+    }
+    .check-text p { font-size: .82rem; color: var(--color-muted); line-height: 1.5; }
+
+    /* ── Results ─────────────────────────────────────── */
+    .results-header {
+      padding: 2.5rem 0 1rem;
+      display: flex;
+      align-items: baseline;
+      gap: .75rem;
+      flex-wrap: wrap;
+    }
+    .results-title {
+      font-family: var(--font-head);
+      font-size: .72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--color-muted);
+    }
+    .results-domain {
+      font-family: var(--font-mono);
       font-size: .8rem;
+      color: var(--color-primary);
+      background: #EFF6FF;
+      border: 1px solid #BFDBFE;
+      border-radius: 5px;
+      padding: .15rem .5rem;
+    }
+
+    /* Result rows — audit report style */
+    .result-table {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--color-surface);
+    }
+    .result-row {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      border-bottom: 1px solid var(--color-border);
+      animation: fadeRow .25s ease both;
+    }
+    .result-row:last-child { border-bottom: none; }
+    .result-row:nth-child(1) { animation-delay: .04s; }
+    .result-row:nth-child(2) { animation-delay: .1s; }
+    .result-row:nth-child(3) { animation-delay: .16s; }
+    .result-row:nth-child(4) { animation-delay: .22s; }
+    @keyframes fadeRow {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    .row-left {
+      padding: 1.1rem .9rem 1.1rem 1.1rem;
+      border-right: 1px solid var(--color-border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      background: #FAFAFA;
+    }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      font-size: .72rem;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      border-radius: var(--radius-sm);
+      padding: .25rem .55rem;
+      border: 1px solid transparent;
+      letter-spacing: .02em;
+      white-space: nowrap;
+    }
+    .status-pill .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .status-pill.ok   { background: var(--color-ok-bg);   color: var(--color-ok);   border-color: var(--color-ok-border); }
+    .status-pill.warn { background: var(--color-warn-bg); color: var(--color-warn); border-color: var(--color-warn-border); }
+    .status-pill.err  { background: var(--color-err-bg);  color: var(--color-err);  border-color: var(--color-err-border); }
+    .ok   .dot { background: #16A34A; }
+    .warn .dot { background: #D97706; }
+    .err  .dot { background: #DC2626; }
+
+    .row-right { padding: 1.1rem 1.25rem; min-width: 0; }
+    .row-right h3 {
+      font-family: var(--font-head);
+      font-size: .9rem;
+      font-weight: 600;
+      letter-spacing: -.15px;
+      margin-bottom: .3rem;
+    }
+    .row-right p {
+      font-size: .875rem;
+      color: var(--color-muted);
+      line-height: 1.6;
+      overflow-wrap: break-word;
+    }
+
+    /* ── Empfehlung (expandierbar) ────────────────── */
+    .empfehlung {
+      margin-top: .85rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .empfehlung summary {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .6rem .85rem;
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--color-accent);
+      cursor: pointer;
+      background: #EFF6FF;
+      list-style: none;
+      user-select: none;
+      transition: background .15s;
+    }
+    .empfehlung summary::-webkit-details-marker { display: none; }
+    .empfehlung summary:hover { background: #DBEAFE; }
+    .empfehlung summary svg {
+      width: 13px; height: 13px;
+      transition: transform .2s;
+      flex-shrink: 0;
+    }
+    .empfehlung[open] summary svg { transform: rotate(90deg); }
+
+    .empfehlung-body {
+      padding: 1rem 1rem 1.1rem;
+      background: #fff;
+      border-top: 1px solid var(--color-border);
+    }
+    .empfehlung-kurztext {
+      font-size: .85rem;
+      color: var(--color-muted);
+      margin-bottom: .85rem;
+      line-height: 1.55;
+    }
+    .empfehlung-schritte {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+      margin-bottom: .9rem;
+    }
+    .empfehlung-schritte li {
+      display: flex;
+      gap: .6rem;
+      font-size: .845rem;
+      line-height: 1.6;
+      color: var(--color-primary);
+    }
+    .empfehlung-schritte li em {
+      display: block;
+      margin-top: .2rem;
+      font-style: normal;
+      font-size: .8rem;
+      color: var(--color-muted);
+    }
+    .empfehlung-schritte li a {
+      color: var(--color-accent);
+      text-underline-offset: 2px;
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 20px; height: 20px;
+      background: var(--color-accent);
+      color: #fff;
+      border-radius: 50%;
+      font-size: .68rem;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      display: flex; align-items: center; justify-content: center;
+      margin-top: .15rem;
+    }
+
+    /* Code-Tabs */
+    .snippet-tabs {
+      display: flex;
+      gap: .3rem;
+      flex-wrap: wrap;
+      margin-bottom: .4rem;
+    }
+    .snippet-tab {
+      padding: .25rem .6rem;
+      font-size: .72rem;
+      font-family: var(--font-mono);
+      border: 1px solid var(--color-border);
+      border-radius: 5px;
+      background: #F8FAFC;
+      cursor: pointer;
+      color: var(--color-muted);
+      transition: all .15s;
+    }
+    .snippet-tab.active,
+    .snippet-tab:hover { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
+
+    .snippet-block {
+      display: none;
+      position: relative;
+    }
+    .snippet-block.visible { display: block; }
+    .snippet-block pre {
+      background: #0F172A;
+      color: #E2E8F0;
+      border-radius: var(--radius-sm);
+      padding: .9rem 1rem;
+      font-family: var(--font-mono);
+      font-size: .76rem;
+      line-height: 1.6;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .copy-btn {
+      position: absolute;
+      top: .5rem; right: .5rem;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.15);
+      color: #94A3B8;
+      border-radius: 5px;
+      padding: .25rem .55rem;
+      font-size: .7rem;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,.2); color: #fff; }
+    .copy-btn.copied { color: #4ADE80; border-color: #4ADE80; }
+
+    /* ── Fazit Banner ────────────────────────────────── */
+    .fazit-banner {
+      margin-top: 1rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid;
+      padding: 1rem 1.25rem;
+      display: flex;
+      gap: .85rem;
+      align-items: flex-start;
+      animation: fadeRow .3s .28s ease both;
+    }
+    .fazit-banner.ok   { background: var(--color-ok-bg);   border-color: var(--color-ok-border);   color: #14532D; }
+    .fazit-banner.warn { background: var(--color-warn-bg); border-color: var(--color-warn-border); color: #78350F; }
+    .fazit-banner.err  { background: var(--color-err-bg);  border-color: var(--color-err-border);  color: #7F1D1D; }
+    .fazit-icon { flex-shrink: 0; margin-top: .1rem; }
+    .fazit-icon svg { width: 18px; height: 18px; }
+    .fazit-text strong { display: block; font-weight: 700; font-size: .9rem; margin-bottom: .2rem; }
+    .fazit-text p { font-size: .875rem; line-height: 1.55; opacity: .9; }
+
+    /* ── Bericht-Download ────────────────────────────── */
+    .bericht-block {
+      margin-top: 1.25rem;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      background: var(--color-surface);
+      overflow: hidden;
+    }
+    .bericht-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 1.1rem 1.4rem;
+    }
+    .bericht-text strong {
+      display: block;
+      font-family: var(--font-head);
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: .2rem;
+    }
+    .bericht-text p {
+      font-size: .82rem;
+      color: var(--color-muted);
+      line-height: 1.5;
+    }
+    .btn-bericht {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .7rem 1.2rem;
+      background: var(--color-primary);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: .875rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .15s;
+      flex-shrink: 0;
+    }
+    .btn-bericht svg { width: 15px; height: 15px; flex-shrink: 0; }
+    .btn-bericht:hover { background: #1e293b; }
+    .btn-bericht:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 2px; }
+
+    @media (max-width: 520px) {
+      .bericht-inner { flex-direction: column; align-items: flex-start; }
+      .btn-bericht { width: 100%; justify-content: center; }
+    }
+
+    /* ── Footer ──────────────────────────────────────── */
+    .footer {
+      margin-top: 4rem;
+      border-top: 1px solid var(--color-border);
+      padding: 1.5rem 0;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: .78rem;
+      color: var(--color-muted);
+    }
+    .footer-inner a { color: var(--color-muted); text-decoration: none; }
+    .footer-inner a:hover { color: var(--color-accent); }
+
+    /* ── Responsive ──────────────────────────────────── */
+    @media (max-width: 580px) {
+      .nav { padding: 0 1rem; }
+      .container { padding: 0 1rem; }
+      h1 { letter-spacing: -.6px; }
+      .search-row { flex-direction: column; }
+      .btn-submit { justify-content: center; }
+      .checks-grid { grid-template-columns: 1fr; }
+      .risiken-grid { grid-template-columns: 1fr; }
+      .problem-block { grid-template-columns: 1fr; }
+      .problem-visual { display: none; }
+      .result-row { grid-template-columns: 1fr; }
+      .row-left { border-right: none; border-bottom: 1px solid var(--color-border); padding: .7rem 1rem; }
+      .footer-inner { flex-direction: column; gap: .4rem; text-align: center; }
+    }
+
+    /* ── Reduced motion ──────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      .result-row, .fazit-banner { animation: none; }
+      .btn-submit, .url-input, .btn-submit svg { transition: none; }
+    }
+
+    /* ── Focus visible polish ────────────────────────── */
+    :focus-visible {
+      outline: 3px solid var(--color-accent);
+      outline-offset: 2px;
+      border-radius: 4px;
     }
   </style>
 </head>
 <body>
 
+<a href="#main-form" class="skip-link">Zum Formular springen</a>
+
+<!-- ── Nav ── -->
 <header>
-  <h1>VereinsCheck</h1>
-  <p>Kostenloser IT-Sicherheits-Check für Vereins-Websites</p>
+  <nav class="nav" aria-label="Hauptnavigation">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-mark" aria-hidden="true">
+        <!-- Shield icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+      VereinsCheck
+    </a>
+    <span class="nav-right" aria-label="Version {{ app_version }}, kostenlos">v{{ app_version }} · kostenlos</span>
+  </nav>
 </header>
 
-<main>
-  <div class="card">
-    <label for="url-input"><strong>Website-Adresse eingeben:</strong></label>
-    <form method="POST" id="check-form">
-      <div class="input-row">
-        <input
-          type="text"
-          id="url-input"
-          name="url"
-          placeholder="z. B. www.mein-verein.de"
-          value="{{ url_eingabe }}"
-          autocomplete="off"
-          autofocus
-        />
-        <button type="submit" class="btn" id="submit-btn">
-          <span id="btn-text">Jetzt prüfen</span>
-          <span class="spinner" id="spinner"></span>
-        </button>
-      </div>
-    </form>
+<!-- ── Page ── -->
+<div class="page">
+  <div class="container">
 
-    {% if fehler %}
-    <div class="fehler">{{ fehler }}</div>
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <p class="hero-eyebrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        IT-Sicherheit für Vereine
+      </p>
+      <h1 id="hero-heading">
+        Wie sicher ist<br/>
+        die <span class="hl">Website</span> eures Vereins?
+      </h1>
+      <p class="hero-sub">
+        Ja, es gibt andere Tools — aber die sind für Techniker. VereinsCheck erklärt auf Deutsch <em>was das Problem ist</em>, <em>warum es wichtig ist</em> und <em>wie ihr es behebt</em> — auch ohne IT-Kenntnisse.
+      </p>
+    </section>
+
+    <!-- Form -->
+    <section id="main-form" aria-label="Website prüfen">
+      <form method="POST" id="check-form" novalidate>
+        <div class="search-block">
+          <label class="search-label" for="url-input">
+            Website-Adresse eingeben
+          </label>
+          <div class="search-row">
+            <input
+              class="url-input"
+              type="url"
+              id="url-input"
+              name="url"
+              placeholder="www.mein-verein.de"
+              value="{{ url_eingabe }}"
+              autocomplete="url"
+              spellcheck="false"
+              autocapitalize="none"
+              autofocus
+              aria-describedby="{% if fehler %}form-error{% endif %}"
+            />
+            <button type="submit" class="btn-submit" id="submit-btn" aria-live="polite">
+              <span class="spinner" id="spinner" aria-hidden="true"></span>
+              <svg id="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+              <span id="btn-text">Jetzt prüfen</span>
+            </button>
+          </div>
+
+          {% if fehler %}
+          <p class="input-error" id="form-error" role="alert">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            {{ fehler }}
+          </p>
+          {% endif %}
+        </div>
+      </form>
+    </section>
+
+    <hr class="section-divider" aria-hidden="true" />
+
+    <!-- Results OR Empty state -->
+    {% if ergebnisse %}
+
+      <section aria-label="Prüfergebnisse">
+        <div class="results-header">
+          <span class="results-title">Ergebnisse</span>
+          <code class="results-domain">{{ url_eingabe }}</code>
+        </div>
+
+        {% set pill_map = {"gruen": ("ok", "OK"), "gelb": ("warn", "Hinweis"), "rot": ("err", "Problem")} %}
+
+        <div class="result-table" role="list">
+          {% for e in ergebnisse %}
+          {% set cls, lbl = pill_map[e.ampel] %}
+          {% set outer_i = loop.index %}
+          <div class="result-row" role="listitem">
+            <div class="row-left" aria-label="Status: {{ lbl }}">
+              <span class="status-pill {{ cls }}" aria-hidden="true">
+                <span class="dot"></span>{{ lbl }}
+              </span>
+            </div>
+            <div class="row-right">
+              <h3>{{ e.titel }}</h3>
+              <p>{{ e.details }}</p>
+
+              {% if e.empfehlung %}
+              <details class="empfehlung" id="emp-{{ loop.index }}">
+                <summary>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+                  Was tun? — Lösung anzeigen
+                </summary>
+                <div class="empfehlung-body">
+                  <p class="empfehlung-kurztext">{{ e.empfehlung.kurztext }}</p>
+
+                  <ol class="empfehlung-schritte" aria-label="Schritte zur Behebung">
+                    {% for schritt in e.empfehlung.schritte %}
+                    <li>
+                      <span class="step-num" aria-hidden="true">{{ loop.index }}</span>
+                      <span>{{ schritt | safe }}</span>
+                    </li>
+                    {% endfor %}
+                  </ol>
+
+                  {% if e.empfehlung.snippets %}
+                  <div class="snippet-tabs" role="tablist" aria-label="Code-Beispiele">
+                    {% for s in e.empfehlung.snippets %}
+                    <button
+                      class="snippet-tab {% if loop.first %}active{% endif %}"
+                      role="tab"
+                      aria-selected="{{ 'true' if loop.first else 'false' }}"
+                      data-target="snip-{{ outer_i }}-{{ loop.index }}"
+                      type="button"
+                    >{{ s.label }}</button>
+                    {% endfor %}
+                  </div>
+                  {% for s in e.empfehlung.snippets %}
+                  <div
+                    class="snippet-block {% if loop.first %}visible{% endif %}"
+                    id="snip-{{ outer_i }}-{{ loop.index }}"
+                    role="tabpanel"
+                  >
+                    <button class="copy-btn" type="button" data-code="{{ s.code | e }}">Kopieren</button>
+                    <pre>{{ s.code | e }}</pre>
+                  </div>
+                  {% endfor %}
+                  {% endif %}
+                </div>
+              </details>
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        {% if fazit %}
+        {% set fcls = {"gruen": "ok", "gelb": "warn", "rot": "err"} %}
+        <div class="fazit-banner {{ fcls[fazit[0]] }}" role="status" aria-live="polite">
+          <div class="fazit-icon" aria-hidden="true">
+            {% if fazit[0] == "gruen" %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            {% elif fazit[0] == "gelb" %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            {% else %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            {% endif %}
+          </div>
+          <div class="fazit-text">
+            <strong>Gesamt-Fazit</strong>
+            <p>{{ fazit[1] }}</p>
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- PDF-Download -->
+        <div class="bericht-block">
+          <div class="bericht-inner">
+            <div class="bericht-text">
+              <strong>Bericht für den Webmaster</strong>
+              <p>Fertige PDF mit allen Ergebnissen, Erklärungen und Code-Snippets — einfach weiterleiten, fertig.</p>
+            </div>
+            <form method="POST" action="/bericht" target="_blank">
+              <input type="hidden" name="url" value="{{ url_eingabe }}" />
+              <button type="submit" class="btn-bericht">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                PDF herunterladen
+              </button>
+            </form>
+          </div>
+        </div>
+
+      </section>
+
+    {% else %}
+
+      <section aria-label="Warum VereinsCheck">
+
+        <!-- ── Warum-Block ── -->
+        <div class="warum-section">
+
+          <!-- Einstieg -->
+          <div class="warum-intro">
+            <p class="warum-eyebrow">Warum ist das wichtig?</p>
+            <h2 class="warum-h2">Vereine sammeln sensible Daten<br/>— aber kaum einer schützt sie.</h2>
+            <p class="warum-lead">Name, Adresse, IBAN, Geburtsdatum: Wer Mitglieder verwaltet oder Spenden annimmt, trägt Verantwortung für diese Daten. Und haftet, wenn etwas schiefläuft.</p>
+          </div>
+
+          <!-- 3 Risiken -->
+          <div class="risiken-grid">
+            <div class="risiko-card">
+              <div class="risiko-icon risiko-rot" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              </div>
+              <h3>Datenleck</h3>
+              <p>Eine unsichere Website kann gehackt werden. Wenn Mitgliederdaten oder IBANs gestohlen werden, haftet der Vorstand persönlich — auch wenn er davon nichts wusste.</p>
+            </div>
+            <div class="risiko-card">
+              <div class="risiko-icon risiko-gelb" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              <h3>DSGVO-Abmahnung</h3>
+              <p>Google Analytics oder Facebook ohne Einwilligungs-Banner einzubinden ist in Deutschland illegal. Datenschutzbehörden mahnen aktiv ab — auch kleine Vereine bekommen Post.</p>
+            </div>
+            <div class="risiko-card">
+              <div class="risiko-icon risiko-blau" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+              </div>
+              <h3>Vertrauensverlust</h3>
+              <p>Mitglieder, die erfahren, dass ihre Daten nicht sicher waren, treten aus. Für einen Verein ist das Vertrauen seiner Gemeinschaft das wichtigste Kapital.</p>
+            </div>
+          </div>
+
+          <!-- Das Problem -->
+          <div class="problem-block">
+            <div class="problem-text">
+              <p class="warum-eyebrow">Das eigentliche Problem</p>
+              <h3>Niemand kümmert sich darum — weil niemand weiß, wie.</h3>
+              <p>Vereinsvorstände sind Ehrenamtliche. Sie kennen sich mit Vereinsrecht aus, mit Organisation, mit Menschen — aber nicht mit Server-Konfiguration. Kein Budget für IT-Berater. Die Website läuft irgendwie, also scheint alles ok zu sein.</p>
+              <p style="margin-top:.75rem;">VereinsCheck wurde genau für diesen Fall gebaut: <strong>kein Englisch, kein Fachjargon, keine IT-Kenntnisse nötig.</strong> Einfach die Website-Adresse eingeben und sofort sehen, wo Handlungsbedarf besteht.</p>
+            </div>
+            <div class="problem-visual" aria-hidden="true">
+              <div class="pv-row">
+                <span class="pv-label">Ohne VereinsCheck</span>
+                <div class="pv-dots">
+                  <span class="pv-dot red"></span>
+                  <span class="pv-dot red"></span>
+                  <span class="pv-dot red"></span>
+                  <span class="pv-dot gray"></span>
+                </div>
+              </div>
+              <div class="pv-line"></div>
+              <div class="pv-row">
+                <span class="pv-label">Mit VereinsCheck</span>
+                <div class="pv-dots">
+                  <span class="pv-dot green"></span>
+                  <span class="pv-dot green"></span>
+                  <span class="pv-dot yellow"></span>
+                  <span class="pv-dot green"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Was wir prüfen -->
+          <p class="checks-intro">Was genau prüfen wir?</p>
+          <div class="checks-grid">
+            <div class="check-item">
+              <div class="check-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+              </div>
+              <div class="check-text">
+                <h4>HTTPS &amp; Zertifikat</h4>
+                <p>Können Besucher abgehört werden, oder ist die Verbindung verschlüsselt?</p>
+              </div>
+            </div>
+            <div class="check-item">
+              <div class="check-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div class="check-text">
+                <h4>Sicherheits&shy;einstellungen</h4>
+                <p>Hat der Server Schutzmaßnahmen aktiv, die gängige Browser-Angriffe blockieren?</p>
+              </div>
+            </div>
+            <div class="check-item">
+              <div class="check-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+              </div>
+              <div class="check-text">
+                <h4>Tracking &amp; DSGVO</h4>
+                <p>Werden Besucher von Google oder Facebook beobachtet, ohne es zu wissen?</p>
+              </div>
+            </div>
+            <div class="check-item">
+              <div class="check-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              </div>
+              <div class="check-text">
+                <h4>Mitglieds&shy;formulare</h4>
+                <p>Werden Name, Adresse oder IBAN bei Anmeldungen sicher und verschlüsselt übertragen?</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
     {% endif %}
-  </div>
 
-  {% if ergebnisse %}
-  <div class="ergebnisse">
-    {% for e in ergebnisse %}
-    <div class="result-card">
-      <div class="ampel {{ e.ampel }}"></div>
-      <div class="result-text">
-        <h3>{{ e.titel }}</h3>
-        <p>{{ e.details }}</p>
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <span>© 2024 VereinsCheck — Open Source</span>
+        <span>Keine Daten werden gespeichert</span>
       </div>
-    </div>
-    {% endfor %}
-  </div>
+    </footer>
 
-  {% if fazit %}
-  <div class="fazit {{ fazit[0] }}">{{ fazit[1] }}</div>
-  {% endif %}
-  {% endif %}
-</main>
-
-<footer>VereinsCheck &mdash; Open Source, keine Daten gespeichert</footer>
+  </div><!-- /container -->
+</div><!-- /page -->
 
 <script>
-  document.getElementById("check-form").addEventListener("submit", function() {
+  // ── Form submit state ──
+  document.getElementById("check-form").addEventListener("submit", function (e) {
+    var val = document.getElementById("url-input").value.trim();
+    if (!val) { e.preventDefault(); return; }
     var btn  = document.getElementById("submit-btn");
     var text = document.getElementById("btn-text");
+    var icon = document.getElementById("btn-icon");
     var spin = document.getElementById("spinner");
     btn.disabled = true;
-    text.textContent = "Wird geprüft…";
+    icon.style.display = "none";
     spin.style.display = "inline-block";
+    text.textContent = "Wird geprüft…";
+    btn.setAttribute("aria-label", "Wird geprüft, bitte warten");
+  });
+
+  // ── Snippet tabs ──
+  document.querySelectorAll(".snippet-tabs").forEach(function (tabList) {
+    tabList.addEventListener("click", function (e) {
+      var btn = e.target.closest(".snippet-tab");
+      if (!btn) return;
+      var target = btn.dataset.target;
+      // Deactivate all in this group
+      tabList.querySelectorAll(".snippet-tab").forEach(function (t) {
+        t.classList.remove("active");
+        t.setAttribute("aria-selected", "false");
+      });
+      tabList.parentElement.querySelectorAll(".snippet-block").forEach(function (b) {
+        b.classList.remove("visible");
+      });
+      // Activate selected
+      btn.classList.add("active");
+      btn.setAttribute("aria-selected", "true");
+      var panel = document.getElementById(target);
+      if (panel) panel.classList.add("visible");
+    });
+  });
+
+  // ── Copy buttons ──
+  document.querySelectorAll(".copy-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var code = btn.dataset.code;
+      navigator.clipboard.writeText(code).then(function () {
+        var orig = btn.textContent;
+        btn.textContent = "Kopiert ✓";
+        btn.classList.add("copied");
+        setTimeout(function () {
+          btn.textContent = orig;
+          btn.classList.remove("copied");
+        }, 2000);
+      });
+    });
   });
 </script>
 

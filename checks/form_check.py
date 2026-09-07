@@ -52,6 +52,7 @@ def check_forms(html: str, base_url: str) -> dict:
         return {
             "ampel": "gruen", "titel": "Formular-Sicherheit",
             "details": "Auf dieser Seite wurde kein Formular gefunden.",
+            "empfehlung": None,
         }
 
     # Gibt es irgendwo auf der Seite einen Datenschutz-Hinweis/Link?
@@ -102,17 +103,50 @@ def check_forms(html: str, base_url: str) -> dict:
         return {
             "ampel": "gruen", "titel": "Formular-Sicherheit",
             "details": "Formulare gefunden, aber keine mit sensiblen Feldern (z. B. Name, IBAN).",
+            "empfehlung": None,
         }
 
     if probleme:
         text = "Kritisch: " + " ".join(probleme)
         if hinweise:
-            text += " Ausserdem: " + " ".join(hinweise)
-        return {"ampel": "rot", "titel": "Formular-Sicherheit", "details": text}
+            text += " Außerdem: " + " ".join(hinweise)
+        return {
+            "ampel": "rot", "titel": "Formular-Sicherheit", "details": text,
+            "empfehlung": {
+                "kurztext": "Sensible Daten (Name, IBAN, Adresse) werden unsicher übertragen. Das muss euer Webmaster beheben.",
+                "schritte": [
+                    "Formular-Methode von <code>GET</code> auf <code>POST</code> umstellen: <code>&lt;form method=\"post\"&gt;</code>.",
+                    "Sicherstellen, dass das Formular-Ziel (<code>action</code>) eine <strong>https://</strong>-Adresse ist.",
+                    "Eine Datenschutzerklärung verlinken und eine Einwilligungs-Checkbox hinzufügen.",
+                    "Bei WordPress: Kontaktformular-Plugin wie <em>Contact Form 7</em> oder <em>WPForms</em> nutzen — diese übertragen Daten korrekt.",
+                ],
+                "snippets": [
+                    {
+                        "label": "Korrektes Formular (Minimalbeispiel)",
+                        "lang": "html",
+                        "code": '<form method="post" action="https://eure-domain.de/kontakt">\n  <input type="text" name="name" />\n  <input type="email" name="email" />\n  <label>\n    <input type="checkbox" name="datenschutz" required />\n    Ich habe die <a href="/datenschutz">Datenschutzerklärung</a> gelesen.\n  </label>\n  <button type="submit">Absenden</button>\n</form>',
+                    }
+                ],
+            },
+        }
 
     if hinweise:
-        return {"ampel": "gelb", "titel": "Formular-Sicherheit",
-                "details": "Verbesserungspunkte: " + " ".join(hinweise)}
+        return {
+            "ampel": "gelb", "titel": "Formular-Sicherheit",
+            "details": "Verbesserungspunkte: " + " ".join(hinweise),
+            "empfehlung": {
+                "kurztext": "Die Grundsicherheit stimmt, aber einige Details sollten verbessert werden.",
+                "schritte": [
+                    "Eine Datenschutzerklärung auf der Seite verlinken.",
+                    "Beim IBAN-Feld <code>autocomplete=\"off\"</code> setzen, damit der Browser keine Bankdaten speichert.",
+                    "Einwilligungs-Checkbox für Datenspeicherung hinzufügen (DSGVO-Pflicht).",
+                ],
+                "snippets": [],
+            },
+        }
 
-    return {"ampel": "gruen", "titel": "Formular-Sicherheit",
-            "details": "Sensible Formulare gefunden – Uebertragung verschluesselt (HTTPS/POST) und Datenschutz-Bezug vorhanden."}
+    return {
+        "ampel": "gruen", "titel": "Formular-Sicherheit",
+        "details": "Sensible Formulare gefunden – Übertragung verschlüsselt (HTTPS/POST) und Datenschutz-Bezug vorhanden.",
+        "empfehlung": None,
+    }
