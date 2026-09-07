@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VereinsCheck – Kostenloser IT-Sicherheits-Check</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f4f6f9;
+      color: #1a1a2e;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #1a1a2e;
+      color: #fff;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    header h1 { font-size: 2rem; letter-spacing: -0.5px; }
+    header p  { margin-top: .4rem; color: #a0aec0; font-size: .95rem; }
+
+    main {
+      max-width: 700px;
+      margin: 2.5rem auto;
+      padding: 0 1rem;
+    }
+
+    /* --- Eingabebereich --- */
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+      padding: 2rem;
+    }
+
+    .input-row {
+      display: flex;
+      gap: .6rem;
+      margin-top: .8rem;
+    }
+    .input-row input[type="text"] {
+      flex: 1;
+      padding: .75rem 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color .2s;
+      outline: none;
+    }
+    .input-row input[type="text"]:focus { border-color: #4f6ef7; }
+
+    .btn {
+      padding: .75rem 1.4rem;
+      background: #4f6ef7;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .2s;
+    }
+    .btn:hover { background: #3b58e0; }
+    .btn:disabled { background: #a0aec0; cursor: default; }
+
+    .fehler {
+      margin-top: 1rem;
+      padding: .75rem 1rem;
+      background: #fff5f5;
+      border-left: 4px solid #e53e3e;
+      border-radius: 6px;
+      color: #c53030;
+    }
+
+    /* --- Ergebnisse --- */
+    .ergebnisse { margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+
+    .result-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .ampel {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: .25rem;
+    }
+    .ampel.gruen  { background: #38a169; box-shadow: 0 0 0 4px rgba(56,161,105,.15); }
+    .ampel.gelb   { background: #d69e2e; box-shadow: 0 0 0 4px rgba(214,158,46,.15); }
+    .ampel.rot    { background: #e53e3e; box-shadow: 0 0 0 4px rgba(229,62,62,.15); }
+
+    .result-text h3 { font-size: 1rem; font-weight: 700; margin-bottom: .25rem; }
+    .result-text p  { font-size: .9rem; color: #4a5568; line-height: 1.5; }
+
+    /* --- Fazit-Banner --- */
+    .fazit {
+      margin-top: 1.5rem;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: .95rem;
+    }
+    .fazit.gruen { background: #f0fff4; color: #276749; border-left: 5px solid #38a169; }
+    .fazit.gelb  { background: #fffff0; color: #744210; border-left: 5px solid #d69e2e; }
+    .fazit.rot   { background: #fff5f5; color: #9b2c2c; border-left: 5px solid #e53e3e; }
+
+    /* --- Lade-Animation --- */
+    .spinner {
+      display: none;
+      width: 20px; height: 20px;
+      border: 3px solid #fff;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: #a0aec0;
+      font-size: .8rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>VereinsCheck</h1>
+  <p>Kostenloser IT-Sicherheits-Check für Vereins-Websites</p>
+</header>
+
+<main>
+  <div class="card">
+    <label for="url-input"><strong>Website-Adresse eingeben:</strong></label>
+    <form method="POST" id="check-form">
+      <div class="input-row">
+        <input
+          type="text"
+          id="url-input"
+          name="url"
+          placeholder="z. B. www.mein-verein.de"
+          value="{{ url_eingabe }}"
+          autocomplete="off"
+          autofocus
+        />
+        <button type="submit" class="btn" id="submit-btn">
+          <span id="btn-text">Jetzt prüfen</span>
+          <span class="spinner" id="spinner"></span>
+        </button>
+      </div>
+    </form>
+
+    {% if fehler %}
+    <div class="fehler">{{ fehler }}</div>
+    {% endif %}
+  </div>
+
+  {% if ergebnisse %}
+  <div class="ergebnisse">
+    {% for e in ergebnisse %}
+    <div class="result-card">
+      <div class="ampel {{ e.ampel }}"></div>
+      <div class="result-text">
+        <h3>{{ e.titel }}</h3>
+        <p>{{ e.details }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  {% if fazit %}
+  <div class="fazit {{ fazit[0] }}">{{ fazit[1] }}</div>
+  {% endif %}
+  {% endif %}
+</main>
+
+<footer>VereinsCheck &mdash; Open Source, keine Daten gespeichert</footer>
+
+<script>
+  document.getElementById("check-form").addEventListener("submit", function() {
+    var btn  = document.getElementById("submit-btn");
+    var text = document.getElementById("btn-text");
+    var spin = document.getElementById("spinner");
+    btn.disabled = true;
+    text.textContent = "Wird geprüft…";
+    spin.style.display = "inline-block";
+  });
+</script>
+
+</body>
+</html>
