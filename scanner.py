@@ -8,6 +8,7 @@ Prueft in unter 2 Minuten:
   1. HTTPS-Verschluesselung (SSL/TLS-Zertifikat)
   2. Security-Header
   3. Tracking & Cookies (heuristisch)
+  4. Formular-Sicherheit (Spenden-/Mitgliedsformulare)
 
 Ausgabe als verstaendliche Ampel – ohne Fachchinesisch.
 """
@@ -20,6 +21,7 @@ import requests
 from checks.ssl_check import check_ssl
 from checks.headers_check import check_headers
 from checks.tracking_check import check_tracking
+from checks.form_check import check_forms
 
 AMPEL_SYMBOL = {"gruen": "[ GRUEN ]", "gelb": "[ GELB  ]", "rot": "[ ROT   ]"}
 
@@ -73,20 +75,18 @@ def main() -> int:
     # 1. HTTPS / SSL – funktioniert unabhaengig vom Laden der Seite
     ergebnisse.append(check_ssl(hostname))
 
-    # 2. + 3. brauchen den Seiteninhalt
+    # 2. + 3. + 4. brauchen den Seiteninhalt
     antwort = hole_seite(url)
     if antwort is not None:
         ergebnisse.append(check_headers(antwort))
         ergebnisse.append(check_tracking(antwort.text))
+        ergebnisse.append(check_forms(antwort.text, antwort.url))
     else:
-        ergebnisse.append({
-            "ampel": "gelb", "titel": "Security-Header",
-            "details": "Konnte nicht geprueft werden, weil die Seite nicht geladen werden konnte.",
-        })
-        ergebnisse.append({
-            "ampel": "gelb", "titel": "Tracking & Cookies",
-            "details": "Konnte nicht geprueft werden, weil die Seite nicht geladen werden konnte.",
-        })
+        for titel in ("Security-Header", "Tracking & Cookies", "Formular-Sicherheit"):
+            ergebnisse.append({
+                "ampel": "gelb", "titel": titel,
+                "details": "Konnte nicht geprueft werden, weil die Seite nicht geladen werden konnte.",
+            })
 
     for ergebnis in ergebnisse:
         drucke_ergebnis(ergebnis)
