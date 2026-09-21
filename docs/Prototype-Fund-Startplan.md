@@ -8,16 +8,7 @@
 
 ## Fang hier an (heute, 21.09.)
 
-**Ein Schritt:** Bewerbungs-Arbeitsdokument ins Repo bringen und Team-Blocker aktivieren.
-
-```bash
-# 1. Externen Entwurf ins Repo kopieren (Kristijan lokal)
-cp ~/…/VereinsCheck-Bewerbung-PrototypeFund.md docs/Bewerbung-Arbeitsdokument.md
-
-# 2. Drei Kern-Antworten aus Bausteine.md einfügen (Abschnitte 1–3)
-# 3. Alle offenen Felder als [PLATZHALTER] markieren
-# 4. Link + Deadline an alle 4 per Slack/Mail schicken (siehe Vorlage unten)
-```
+**Ein Schritt:** Team-Blocker aktivieren — `docs/Bewerbung-Arbeitsdokument.md` ist angelegt, Platzhalter befüllen und an alle 4 schicken (Deadline 24.09., siehe Vorlage unten).
 
 **Warum genau das:** Die Jury entscheidet **schriftlich** — ohne vollständige Namen, GF-Angabe und Teamprofile ist kein Submit möglich. Gleichzeitig habt ihr die Textbausteine schon fertig; es fehlt nur das **eine Arbeitsdokument**, in dem alles zusammenläuft. Das ist der schnellste Weg von „Material vorhanden“ zu „Antrag in Arbeit“.
 
@@ -141,8 +132,8 @@ Bausteine: docs/Prototype-Fund-Bewerbung-Bausteine.md
 | Ressource | Pfad / Link |
 |---|---|
 | Textbausteine (fertig) | `docs/Prototype-Fund-Bewerbung-Bausteine.md` |
-| Bewerbungs-Arbeitsdokument | `docs/Bewerbung-Arbeitsdokument.md` *(noch anlegen)* |
-| Übergabe-Spezifikation | `docs/Übergabe-Modus-Spezifikation.md` *(noch anlegen)* |
+| Bewerbungs-Arbeitsdokument | `docs/Bewerbung-Arbeitsdokument.md` ✅ |
+| Übergabe-Spezifikation | `docs/Übergabe-Modus-Spezifikation.md` ✅ (Wireframe noch offen) |
 | GitHub Prototyp | https://github.com/kkostovski33/vereinscheck |
 | Portal | prototypefund.de (ab 01.10.2026) |
 | Erfolgsquote | ~8 % — Schreibqualität + Innovation + Reichweite entscheiden |
