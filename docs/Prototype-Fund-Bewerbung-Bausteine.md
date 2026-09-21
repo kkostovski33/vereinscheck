@@ -125,7 +125,11 @@ ermöglicht parallele Entwicklung und spätere Erweiterung durch Dachverbände.
 
 ```
 Aufbauend auf dem vorhandenen Prototyp (v0.3.0, GitHub) gliedert sich die 
-sechsmonatige Förderphase in Arbeitspakete für das vierköpfige Team:
+sechsmonatige Förderphase in Arbeitspakete für das zweiköpfige Team 
+(Kristijan Kostovski, GF — Engine & Projektleitung; Friederike Roessing — 
+Frontend, UX & Übergabe-Modus). Weniger parallele Kapazität als bei größerem 
+Team; Pakete werden nacheinander priorisiert, Tier-1-Features (E, D, F, I/J) 
+bleiben verbindlich:
 
 Monat 1–2 – Engine härten + erste Erweiterungen:
 Unit-/Integrationstests (pytest) für alle Checks. Scan-Logik anhand 
@@ -150,10 +154,10 @@ Usability-Test mit 3 Vereinsvorständen.
 
 Monat 4–5 – Prüftiefe & Nutzererfahrung:
 Browser-basierte Tracking-Prüfung (Playwright, C1–C5 — grau statt grün 
-wenn nicht prüfbar). SSL-Ergänzungen A4–A7. WCAG 2.1 AA Basics 
-(Mobile, Tastatur, Kontrast). Lösungsdatenbank: 20 Starteinträge mit 
-anbieterspezifischen Klickpfaden (WordPress, IONOS, Strato, Twingle …). 
-Praxistests mit 5–10 Vereinen.
+wenn nicht prüfbar; Scope auf Kernfälle, kein Vollabdeckungs-Anspruch). 
+SSL-Ergänzungen A4–A7. WCAG 2.1 AA Basics (Mobile, Tastatur, Kontrast). 
+Lösungsdatenbank: 20 Starteinträge mit anbieterspezifischen Klickpfaden 
+(WordPress, IONOS, Strato, Twingle …). Praxistests mit 5–10 Vereinen.
 
 Monat 5–6 – Verbreitung & Nachhaltigkeit:
 Pilot mit mindestens einem Dachverband. Self-Hosting-Doku für Verbände. 
@@ -211,11 +215,11 @@ für IT-Sicherheit. Kein Abo-Modell, keine Datensammlung.
 - Formular-Check umgesetzt (Erkennung sensibler Felder, HTTPS/GET/POST, 
   DSGVO-Einwilligung, Drittanbieter-Einbettung) — war geplant ab 05.09.2026
 
-**Formular-Check — geplante Aufgabenteilung (4 Personen, aus Konzept 04.09.):**
-1. Person B: Formular-Erkennung (BeautifulSoup) + Zusammenführung aller Teilergebnisse
-2. Person C: Übertragungsweg-Check (HTTPS/GET/POST)
-3. Person D: Datenschutz-Einwilligung-Heuristik
-4. Person A: Drittanbieter-Check + Praxistest gegen 5–10 echte Vereins-Websites
+**Formular-Check — Aufgabenteilung (2 Personen, Stand 21.09.):**
+1. **Kristijan:** Formular-Erkennung (BeautifulSoup), Übertragungsweg (HTTPS/GET/POST), 
+   Drittanbieter-Check, Zusammenführung aller Teilergebnisse
+2. **Friederike:** Datenschutz-Einwilligung-Heuristik (Vereinssprache), 
+   Praxistest gegen 5–10 echte Vereins-Websites, UX der Formular-Befunde
 
 **Geplant in der Förderphase (Tier 1 + 2, siehe §16):**
 1. **Tier 1:** E-Mail-Identität (E), Formular D1–D10 (D), Domain-Inventar (F), Dialog (I), Übergabe (J), Impressum/DSE (C6/C7), Lösungsdatenbank, pytest
@@ -282,21 +286,23 @@ Der Prüfkatalog zeigt der Jury **inhaltliche Tiefe**, nicht nur eine Idee:
 
 ## 10. Team, Budget & Formalien
 
-### Team (fest, 4 Personen)
+### Team (FINAL — 2 Personen)
 
-- **4 IT-Ingenieur:innen**, davon **2 in Deventer (Niederlande)** — EU-Ausland ist beim Prototype Fund zulässig
-- Alle Teammitglieder stehen fest; modulare Code-Struktur ist auf arbeitsteiliges Arbeiten ausgelegt
+- **Kristijan Kostovski** — Geschäftsführer (GF), Deutschland
+- **Friederike Roessing** — Teammitglied, Deutschland
+- Beide Teammitglieder stehen fest; modulare Code-Struktur ist auf sequenzielles, fokussiertes Arbeiten ausgelegt
 - **Antragsteller:** Team (max. 4 Personen), **nicht** als Verein — Pflicht ist eine **GbR mit Sitz in Deutschland**
 - **GbR-Gründung:** erst **nach Förderzusage** (voraussichtlich Ende Januar 2027), nicht vor der Bewerbung
-- Geschäftsführer:in mit Wohnsitz in DE; Open Source (MIT ✅)
+- **GbR-Sitz:** Telgte (DE) · **GF:** Kristijan Kostovski (Wohnsitz DE)
+- Vorteil: keine EU-Ausland-Komplexität (beide in DE); GbR-Gründung vereinfacht
+- Nachteil: weniger parallele Entwicklungskapazität — Meilensteine priorisieren Tier 1, Tier 2 selektiv
+- Open Source (MIT ✅)
 - **Parallel:** e.V.-Gründung mit 7 Gründungsmitgliedern läuft separat (ab 01.08.2026 geplant) — unabhängig vom PF-Zeitplan, da PF keine Vereinsregistrierung verlangt
 
-| Person | Rolle (Vorschlag) | Arbeitspaket | Standort |
+| Person | Rolle | Arbeitspaket | Standort |
 |---|---|---|---|
-| Person A (DE, GF, Vollzeit) | Projektleitung, Verbands-Kontakte, GbR | M5–M6 | Deutschland |
-| Person B | Scan-Engine, Tests, Formular-Check | M1–M3 | — |
-| Person C | Frontend, Barrierefreiheit | M4–M5 | Deventer (NL) |
-| Person D | Übergabe-Modus, UX-Texte, Prüfkatalog | M3–M4 | Deventer (NL) |
+| **Kristijan Kostovski** (GF, Vollzeit) | Projektleitung, Scan-Engine, Tests, E/D/F-Module, Verbands-Kontakte, GbR | M1–M3, M5–M6 | Deutschland |
+| **Friederike Roessing** (Vollzeit) | Frontend, UX/Vereinssprache, Übergabe-Modus (I/J), WCAG, Lösungsdatenbank, Praxistests | M3–M6 | Deutschland |
 
 ### Budget-Mechanik (Prototype Fund / „Software Sprint", BMFTR via OKF)
 
@@ -311,12 +317,12 @@ Der Prüfkatalog zeigt der Jury **inhaltliche Tiefe**, nicht nur eine Idee:
 | Erste Auszahlung | nach Monat 1 (Juni/Juli 2027) |
 | Second Stage (optional) | Dez. 2027 – März 2028, +63.333 € Team (mit Jury-Präsentation) |
 
-**Geplante Stunden-Konstellation (realistisch volle 95.000 €):**
+**Geplante Stunden-Konstellation (realistisch volle 95.000 €, 2 Personen):**
 
 | Person | Modell | Stunden | Budget |
 |---|---|---|---|
-| Person A (GF) | Vollzeit-Freistellung vom Hauptjob | 950 Std. | 47.500 € |
-| Person B + C + D | je ca. 12 Std./Woche (Teilzeit/Minijob) | zusammen 950 Std. | 47.500 € |
+| Kristijan Kostovski (GF) | Vollzeit-Freistellung vom Hauptjob | 950 Std. | 47.500 € |
+| Friederike Roessing | Vollzeit (oder vergleichbare Freistellung) | 950 Std. | 47.500 € |
 | **Gesamt** | | **1.900 Std.** | **95.000 €** |
 
 → Plus 5 % Gemeinkosten = **99.750 €** Gesamtförderung.  
@@ -327,7 +333,7 @@ Der Prüfkatalog zeigt der Jury **inhaltliche Tiefe**, nicht nur eine Idee:
 - **Kooperationspartner** (DsiN, BBE, Landessportbund …): unbegrenzt parallel anfragbar
 - **Weitere Förderprogramme** parallel erlaubt, solange keine Doppelförderung exakt gleicher Kosten:
   - **DSEE** (Digitalisierung im Ehrenamt) — Fördermittelwerkstatt Okt./Nov. 2026 als Einstieg
-  - **NLnet Foundation** (Open Source, Sitz NL) — passt zum Team-Standort Deventer
+  - **NLnet Foundation** (Open Source) — optional, unabhängig vom PF-Antrag
 - **Erasmus+** (MitWirkung/KA154) — zweitrangig, seit PF-Fokus
 
 ### Verworfene Projektalternativen (für Jury-Kontext)
@@ -345,7 +351,8 @@ Der Prüfkatalog zeigt der Jury **inhaltliche Tiefe**, nicht nur eine Idee:
 | „Nur ein Scanner" | Übergabe-Modus + Dialog (I/J) als Kern-Innovation |
 | WebPrüfer ähnlich | Enger Vereins-Fokus, E-Mail-Check, Wissensübergabe |
 | Keine Tests im Repo | M1 explizit pytest; bewusst erste Förder-Aufgabe |
-| Team-Profile fehlen (Namen noch offen) | Vier Namen + Kurzprofile bis Submit; GF/Freistellung benennen |
+| Zweiköpfiges Team — weniger Parallelität | Tier 1 verbindlich; Playwright/C1–C5 auf Kernfälle; klare Rollenverteilung |
+| Team-Profile unvollständig | Kurzprofile + Freistellungsplan für beide bis Submit |
 | Keine Antwort DsiN/BBE (Stand 04.09.) | Nachfassen bis 15.10.; parallel Landessportbund anfragen |
 
 ---
@@ -361,7 +368,7 @@ Der Prüfkatalog zeigt der Jury **inhaltliche Tiefe**, nicht nur eine Idee:
 - [ ] Privacy-by-Design explizit erwähnen
 - [ ] Prüfkatalog als fachliche Tiefe referenzieren
 - [ ] Text von **Nicht-Techniker** lesen lassen
-- [ ] Alle 4 Namen verbindlich nennen
+- [ ] Beide Namen + Kurzprofile verbindlich nennen
 - [ ] Stunden vs. Meilensteine konsistent
 
 ---
@@ -370,8 +377,9 @@ Der Prüfkatalog zeigt der Jury **inhaltliche Tiefe**, nicht nur eine Idee:
 
 ### Bereits befüllt ✅
 
-- [x] Teamgröße und Zusammensetzung: 4 IT-Ingenieur:innen, 2× Deventer
-- [x] Stundenplanung: Person A Vollzeit (950 Std.), 3× je ~12 h/Woche (950 Std. gesamt)
+- [x] Teamgröße und Zusammensetzung: **2 Personen** — Kristijan Kostovski (GF), Friederike Roessing (beide DE)
+- [x] GbR-Sitz: Telgte (DE); GF: Kristijan Kostovski
+- [x] Stundenplanung: je 950 Std. (Vollzeit), gesamt 1.900 Std. / 95.000 €
 - [x] Budget-Ziel: volle 95.000 € (+ 5 % Gemeinkosten)
 - [x] GbR-Timing: erst nach Zusage (~Ende Jan. 2027), nicht vor Bewerbung
 - [x] Kooperationsanfragen versendet (DsiN, BBE) — Kontakte dokumentiert
@@ -381,8 +389,9 @@ Der Prüfkatalog zeigt der Jury **inhaltliche Tiefe**, nicht nur eine Idee:
 
 ### Noch offen — Kristijan muss liefern ❌
 
-- [ ] **Vollständige Namen** der vier Teammitglieder + Kurzprofile/Vorerfahrung
-- [ ] **Wer ist Person A (GF)?** — Name, Wohnort DE, Freistellungsplan vom Hauptjob
+- [ ] **Kurzprofile/Vorerfahrung** Kristijan + Friederike (OSS, Security, Vereinsarbeit?)
+- [ ] **Freistellungsplan Kristijan (GF)** — Arbeitgeber, Umfang, geklärt ja/nein, ab 01.06.2027
+- [ ] **Freistellungsplan Friederike** — Umfang, geklärt ja/nein, ab 01.06.2027
 - [ ] **Antworten von DsiN/BBE** — bei Zusage in Bewerbung aufnehmen; sonst Fallback-Verbände
 - [ ] **DSEE-Kontakt** aufbauen (Fördermittelwerkstatt Okt./Nov. 2026)
 - [ ] **Persönliche Motivation:** Kennt jemand Vereinsarbeit aus erster Hand?
@@ -395,7 +404,7 @@ Der Prüfkatalog zeigt der Jury **inhaltliche Tiefe**, nicht nur eine Idee:
 ### Vorhandene Entwürfe (extern, nicht im Repo)
 
 - `VereinsCheck-Bewerbung-PrototypeFund.md` — vollständiger Bewerbungsentwurf (DE)
-- `VereinsCheck-Application-English.md` — englische Version für Kolleg:innen in Deventer
+- `VereinsCheck-Application-English.md` — englische Kurzfassung (optional, nicht mehr teambedingt)
 - `MitWirkung-Projektplan-KA154.md` — Erasmus+-Variante (zweitrangig)
 
 ---
@@ -488,7 +497,7 @@ Der Prüfkatalog zeigt der Jury **inhaltliche Tiefe**, nicht nur eine Idee:
 | Maßnahme | Aufwand | Nutzen |
 |---|---|---|
 | `checks/email_check.py` Stub (SPF/DMARC per DNS) | ~2 h | 5. Check live → Pitch glaubwürdiger |
-| Wireframe Übergabe-Modus (3 Screens) | Person D | Innovations-Beweis ohne Implementierung |
+| Wireframe Übergabe-Modus (3 Screens) | Friederike | Innovations-Beweis ohne Implementierung |
 | 1 Fallstudie mit rotem E-Mail-Befund | ~30 min | Story für Feld „Gesellschaftliche Herausforderung" |
 
 → E-Mail-Stub **nicht zwingend** — Prüfkatalog + Meilensteine reichen; Stub nur wenn vor Submit noch Kapazität.

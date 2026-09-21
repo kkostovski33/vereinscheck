@@ -13,8 +13,8 @@
 |---|---|
 | Kern-Antworten (3× ~2.000 Zeichen) | ✅ Text vorhanden |
 | Meilensteine / Arbeitsplan | ✅ Text vorhanden |
-| Team-Namen & Profile | ❌ `[PLATZHALTER]` |
-| GF + Freistellungsplan | ❌ `[PLATZHALTER]` |
+| Team-Namen & Profile | ⏳ Namen gesetzt, Kurzprofile noch offen |
+| GF + Freistellungsplan | ⏳ GF Kristijan — Freistellungsplan noch offen |
 | Kooperationspartner / LOI | ⏳ DsiN/BBE angefragt, Antwort offen |
 | Anhänge (Prüfkatalog, Wireframe, Fallstudien) | ❌ noch anlegen |
 | Second Stage | ✅ Text vorhanden |
@@ -27,16 +27,16 @@
 
 | Rolle | Name | Wohnort | Stunden (6 Mon.) | Kurzprofil |
 |---|---|---|---|---|
-| Person A — GF, Vollzeit | `[PLATZHALTER]` | `[PLATZHALTER]` DE | 950 Std. | `[PLATZHALTER]` |
-| Person B — Engine | `[PLATZHALTER]` | `[PLATZHALTER]` | ~317 Std. | `[PLATZHALTER]` |
-| Person C — Frontend | `[PLATZHALTER]` | Deventer, NL | ~317 Std. | `[PLATZHALTER]` |
-| Person D — Übergabe/UX | `[PLATZHALTER]` | Deventer, NL | ~317 Std. | `[PLATZHALTER]` |
+| GF, Projektleitung, Engine | **Kristijan Kostovski** | Deutschland | 950 Std. | `[PLATZHALTER — 3 Sätze Vorerfahrung]` |
+| Frontend, UX, Übergabe-Modus | **Friederike Roessing** | Deutschland | 950 Std. | `[PLATZHALTER — 3 Sätze Vorerfahrung]` |
 
-**GbR:** Gründung erst nach Förderzusage (~Ende Jan. 2027). Sitz: `[PLATZHALTER]` (DE).
+**GbR:** Gründung erst nach Förderzusage (~Ende Jan. 2027). **Sitz: Telgte (DE). GF: Kristijan Kostovski.**
 
 **Persönliche Motivation (Vereinsbezug):** `[PLATZHALTER — mindestens 1 Person mit erster Hand-Erfahrung]`
 
-**Freistellung Person A ab 01.06.2027:** `[PLATZHALTER — Arbeitgeber, Umfang, geklärt ja/nein]`
+**Freistellung Kristijan (GF) ab 01.06.2027:** `[PLATZHALTER — Arbeitgeber, Umfang, geklärt ja/nein]`
+
+**Freistellung Friederike ab 01.06.2027:** `[PLATZHALTER — Umfang, geklärt ja/nein]`
 
 ---
 
@@ -81,7 +81,10 @@ machen, den Prüfkatalog schrittweise umsetzen (v1.0: 7 Prüfbereiche A–F plus
 
 ```
 Aufbauend auf dem vorhandenen Prototyp (v0.3.0, GitHub) gliedert sich die 
-sechsmonatige Förderphase in Arbeitspakete für das vierköpfige Team:
+sechsmonatige Förderphase in Arbeitspakete für das zweiköpfige Team 
+(Kristijan Kostovski — Engine & Projektleitung; Friederike Roessing — 
+Frontend, UX & Übergabe-Modus). Tier-1-Features bleiben verbindlich; 
+weniger parallele Kapazität, dafür fokussierte Priorisierung:
 
 Monat 1–2 – Engine härten + erste Erweiterungen:
 Unit-/Integrationstests (pytest) für alle Checks. Scan-Logik anhand 
@@ -106,10 +109,10 @@ Usability-Test mit 3 Vereinsvorständen.
 
 Monat 4–5 – Prüftiefe & Nutzererfahrung:
 Browser-basierte Tracking-Prüfung (Playwright, C1–C5 — grau statt grün 
-wenn nicht prüfbar). SSL-Ergänzungen A4–A7. WCAG 2.1 AA Basics 
-(Mobile, Tastatur, Kontrast). Lösungsdatenbank: 20 Starteinträge mit 
-anbieterspezifischen Klickpfaden (WordPress, IONOS, Strato, Twingle …). 
-Praxistests mit 5–10 Vereinen.
+wenn nicht prüfbar; Scope auf Kernfälle). SSL-Ergänzungen A4–A7. 
+WCAG 2.1 AA Basics (Mobile, Tastatur, Kontrast). Lösungsdatenbank: 
+20 Starteinträge mit anbieterspezifischen Klickpfaden (WordPress, IONOS, 
+Strato, Twingle …). Praxistests mit 5–10 Vereinen.
 
 Monat 5–6 – Verbreitung & Nachhaltigkeit:
 Pilot mit mindestens einem Dachverband. Self-Hosting-Doku für Verbände. 
@@ -188,8 +191,8 @@ Prüfkatalog G/H vorsichtig ausbauen.
 
 | | Stunden | Budget |
 |---|---|---|
-| Person A (GF, Vollzeit) | 950 | 47.500 € |
-| Person B + C + D | 950 | 47.500 € |
+| Kristijan Kostovski (GF, Vollzeit) | 950 | 47.500 € |
+| Friederike Roessing (Vollzeit) | 950 | 47.500 € |
 | **Gesamt** | **1.900** | **95.000 €** |
 | + 5 % Gemeinkosten | | **99.750 €** |
 

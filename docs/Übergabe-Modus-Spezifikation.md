@@ -1,7 +1,7 @@
 # VereinsCheck – Übergabe-Modus (Spezifikation v0.1)
 
 *Stand: 21.09.2026 · Innovationskern für Prototype-Fund-Bewerbung*  
-*Status: Konzept — Wireframe folgt (Person D, Deadline 27.09.)*
+*Status: Konzept — Wireframe folgt (Friederike Roessing, Deadline 27.09.)*
 
 > **Kernversprechen:** IT-Wissen übersteht den Vorstandswechsel. Das unterscheidet VereinsCheck von jedem Header-Scanner.
 
@@ -69,7 +69,7 @@ Aktivierbarer Zusatzmodus „Der Vorstand wechselt":
 
 ## Wireframe — TODO
 
-- [ ] `[PLATZHALTER Person D]` — 3 Screens: Scan-Ergebnis → Dialog → PDF-Vorschau
+- [ ] **Friederike Roessing** — 3 Screens: Scan-Ergebnis → Dialog → PDF-Vorschau
 - [ ] Export als PNG für Bewerbungs-Anhang (Deadline: 15.10.)
 
 ---
