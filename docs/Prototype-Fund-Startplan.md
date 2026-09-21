@@ -53,7 +53,7 @@ Bausteine: docs/Prototype-Fund-Bewerbung-Bausteine.md
 
 | # | Was genau | Warum für die Jury | Aufwand | Wer |
 |---|---|---|---|---|
-| 6 | **Prüfkatalog v0.1** als Anhang ins Repo (`docs/Pruefkatalog-v0.1.md` oder PDF) | Zeigt fachliche Tiefe über v0.3.0 hinaus (Bereiche A–J) | 2–3 h | **Friederike** (Vereinssprache) + Review Kristijan |
+| 6 | **Prüfkatalog v0.1** als Anhang ins Repo | Zeigt fachliche Tiefe (Bereiche A–J) | ✅ `docs/Pruefkatalog-v0.1.md` | — |
 | 7 | **5–10 Vereine** für Praxistests benennen (Bekanntenkreis, kein LOI nötig) | Konkreter Praxistest-Plan in Meilensteinen | 30 Min. | **Kristijan** |
 | 8 | **Second-Stage-Abschnitt** aus Bausteine §8 in Arbeitsdokument übernehmen | Signalisiert Langfristigkeit + Verbands-Rollout | 30 Min. | **Kristijan** |
 | 9 | **Stundenplan prüfen:** je 950 Std., Meilensteine M1–M6 konsistent, Tier-2-Scope realistisch | Widersprüche = häufiger Ablehnungsgrund; 2-Personen-Team = weniger Parallelität | 1 h | **Kristijan + Friederike** |
