@@ -1,6 +1,6 @@
 # VereinsCheck – Bewerbungsbausteine Prototype Fund
 
-*Aktualisierter Stand: 21.09.2026 – inkl. Prüfkatalog, korrigierter Roadmap und fertiger Antworttexte*
+*Aktualisierter Stand: 21.09.2026 – integriert: Kristijans Uploads (Fortschritt 04.09., Förder-Zusammenfassung 28.08., README, requirements)*
 
 > **Bewerbungsfenster Jahrgang 03:** 01.10.–30.11.2026 · Förderstart 01.06.2027 · 6 Monate (+ optional 4 Monate Second Stage)  
 > **Förderschwerpunkt wählen:** Datensicherheit (Förderlinie Innovation)  
@@ -169,8 +169,13 @@ die Website „nebenbei" betreuen.
 Erreichung über Multiplikatoren, nicht Einzelansprache:
 - Dachverbände und Engagement-Netzwerke (DsiN/Digitale Nachbarschaft, 
   BBE – Bundesnetzwerk Bürgerschaftliches Engagement, DSEE)
-- Kooperationsanfragen bereits versendet; Ziel: schriftliche 
-  Interessensbestätigung für Testphase mit Mitgliedsvereinen
+- Kooperationsanfragen **versendet** (Stand 04.09.2026), Antworten noch offen:
+  - **DsiN / Digitale Nachbarschaft:** info@sicher-im-netz.de
+    (Ausweich von dina@digitale-nachbarschaft.de — Adresse technisch defekt)
+  - **BBE:** info@b-b-e.de
+  - Inhalt: Projekt-Vorstellung, GitHub-Link, Bitte um 15–20-Min-Gespräch 
+    und schriftliche Interessensbestätigung für Testphase mit Mitgliedsvereinen
+  - **Fallback bei Ablehnung/keine Antwort:** weitere Dachverbände (z. B. Landessportbund)
 - Open Source ermöglicht Verbänden, VereinsCheck auf eigenen Seiten 
   einzubinden und dauerhaft weiterzubetreiben – unabhängig vom Kernteam
 
@@ -195,6 +200,14 @@ für IT-Sicherheit. Kein Abo-Modell, keine Datensammlung.
 - Datenschutzerklärung (privacy-by-design: keine Datenspeicherung)
 - Prüfkatalog v0.1 als fachliche Spezifikation (10 Bereiche A–J)
 - Erfolgreich getestet an echten Vereins-Websites
+- Formular-Check umgesetzt (Erkennung sensibler Felder, HTTPS/GET/POST, 
+  DSGVO-Einwilligung, Drittanbieter-Einbettung) — war geplant ab 05.09.2026
+
+**Formular-Check — geplante Aufgabenteilung (4 Personen, aus Konzept 04.09.):**
+1. Person B: Formular-Erkennung (BeautifulSoup) + Zusammenführung aller Teilergebnisse
+2. Person C: Übertragungsweg-Check (HTTPS/GET/POST)
+3. Person D: Datenschutz-Einwilligung-Heuristik
+4. Person A: Drittanbieter-Check + Praxistest gegen 5–10 echte Vereins-Websites
 
 **Geplant in der Förderphase (klar abgrenzbar):**
 1. Testabdeckung und Robustheit der Engine
@@ -262,21 +275,60 @@ Der Prüfkatalog zeigt der Jury **inhaltliche Tiefe**, nicht nur eine Idee:
 
 ---
 
-## 10. Team & Formalien
+## 10. Team, Budget & Formalien
 
-- Max. **4 Personen**, nach Auswahl **GbR mit Sitz in Deutschland**
-- Geschäftsführer:in mit Wohnsitz in DE (Teammitglieder in NL/Deventer: OK)
-- Open Source (MIT ✅)
-- **Kein** Verein, Unternehmen oder Uni als Antragsteller
+### Team (fest, 4 Personen)
 
-| Person | Rolle (Vorschlag) | Arbeitspaket |
-|---|---|---|
-| Person A (DE, GF) | Projektleitung, Verbands-Kontakte | M5–M6, GbR |
-| Person B | Scan-Engine, Tests | M1–M3 |
-| Person C | Frontend, Barrierefreiheit | M4–M5 |
-| Person D | Übergabe-Modus, UX-Texte, Prüfkatalog | M3–M4 |
+- **4 IT-Ingenieur:innen**, davon **2 in Deventer (Niederlande)** — EU-Ausland ist beim Prototype Fund zulässig
+- Alle Teammitglieder stehen fest; modulare Code-Struktur ist auf arbeitsteiliges Arbeiten ausgelegt
+- **Antragsteller:** Team (max. 4 Personen), **nicht** als Verein — Pflicht ist eine **GbR mit Sitz in Deutschland**
+- **GbR-Gründung:** erst **nach Förderzusage** (voraussichtlich Ende Januar 2027), nicht vor der Bewerbung
+- Geschäftsführer:in mit Wohnsitz in DE; Open Source (MIT ✅)
+- **Parallel:** e.V.-Gründung mit 7 Gründungsmitgliedern läuft separat (ab 01.08.2026 geplant) — unabhängig vom PF-Zeitplan, da PF keine Vereinsregistrierung verlangt
 
-**Stunden (Richtwert):** ca. 3.800–4.200 Stunden gesamt (4 × ~20–25 h/Woche × 26 Wochen)
+| Person | Rolle (Vorschlag) | Arbeitspaket | Standort |
+|---|---|---|---|
+| Person A (DE, GF, Vollzeit) | Projektleitung, Verbands-Kontakte, GbR | M5–M6 | Deutschland |
+| Person B | Scan-Engine, Tests, Formular-Check | M1–M3 | — |
+| Person C | Frontend, Barrierefreiheit | M4–M5 | Deventer (NL) |
+| Person D | Übergabe-Modus, UX-Texte, Prüfkatalog | M3–M4 | Deventer (NL) |
+
+### Budget-Mechanik (Prototype Fund / „Software Sprint", BMFTR via OKF)
+
+| Parameter | Wert |
+|---|---|
+| Bewerbungsfenster | 01.10.–30.11.2026 |
+| Erfolgsquote | ca. 8 % (25–30 von zuletzt ~327 Bewerbungen) |
+| Auswahl | komplett schriftlich, **kein Pitch** in Stage 1 |
+| Team-Maximum | 1.900 Std. / **95.000 €** (+ 5 % Gemeinkosten) |
+| Einzelperson-Maximum | 950 Std. / 50.000 € |
+| Förderstart (bei Zusage) | fix **01.06.2027**, 6 Monate |
+| Erste Auszahlung | nach Monat 1 (Juni/Juli 2027) |
+| Second Stage (optional) | Dez. 2027 – März 2028, +63.333 € Team (mit Jury-Präsentation) |
+
+**Geplante Stunden-Konstellation (realistisch volle 95.000 €):**
+
+| Person | Modell | Stunden | Budget |
+|---|---|---|---|
+| Person A (GF) | Vollzeit-Freistellung vom Hauptjob | 950 Std. | 47.500 € |
+| Person B + C + D | je ca. 12 Std./Woche (Teilzeit/Minijob) | zusammen 950 Std. | 47.500 € |
+| **Gesamt** | | **1.900 Std.** | **95.000 €** |
+
+→ Plus 5 % Gemeinkosten = **99.750 €** Gesamtförderung.  
+→ **Arbeitszeitgesetz:** Hauptjob + PF-Arbeit zusammen max. **48 Std./Woche** pro Person.
+
+### Parallele Förderstrategie (ohne Doppelförderung)
+
+- **Kooperationspartner** (DsiN, BBE, Landessportbund …): unbegrenzt parallel anfragbar
+- **Weitere Förderprogramme** parallel erlaubt, solange keine Doppelförderung exakt gleicher Kosten:
+  - **DSEE** (Digitalisierung im Ehrenamt) — Fördermittelwerkstatt Okt./Nov. 2026 als Einstieg
+  - **NLnet Foundation** (Open Source, Sitz NL) — passt zum Team-Standort Deventer
+- **Erasmus+** (MitWirkung/KA154) — zweitrangig, seit PF-Fokus
+
+### Verworfene Projektalternativen (für Jury-Kontext)
+
+- Barrierefreie UI-Bibliothek — Markt zu gesättigt
+- Stalkerware-Detector — technisches Risiko zu hoch für Erstlings-Team
 
 ---
 
@@ -308,24 +360,55 @@ Der Prüfkatalog zeigt der Jury **inhaltliche Tiefe**, nicht nur eine Idee:
 
 ---
 
-## 13. Noch auszufüllende Platzhalter (vor dem Absenden)
+## 13. Platzhalter-Status (vor dem Absenden)
 
-- [ ] Vollständige Namen der vier Teammitglieder + Kurzprofile/Vorerfahrung
-- [ ] Konkrete GbR-Konstellation (wer Geschäftsführung, Sitz in Deutschland)
-- [ ] Antworten von DsiN/BBE/DSEE — bei Zusage in Bewerbung aufnehmen
-- [ ] Persönliche Motivation: Kennt jemand Vereinsarbeit aus erster Hand?
-- [ ] Stundenplanung: Vollzeit-Freistellung oder Nebenprojekt?
-- [ ] 5–10 Vereine für Praxistests (Bekanntenkreis)?
-- [ ] Domain `vereinscheck.de` — registriert? Wer hostet?
-- [ ] Frühere Förderung für VereinsCheck oder ähnliche Idee?
-- [ ] Übergabe-Modus: Wireframe/Mockup als Anhang?
+### Bereits befüllt ✅
+
+- [x] Teamgröße und Zusammensetzung: 4 IT-Ingenieur:innen, 2× Deventer
+- [x] Stundenplanung: Person A Vollzeit (950 Std.), 3× je ~12 h/Woche (950 Std. gesamt)
+- [x] Budget-Ziel: volle 95.000 € (+ 5 % Gemeinkosten)
+- [x] GbR-Timing: erst nach Zusage (~Ende Jan. 2027), nicht vor Bewerbung
+- [x] Kooperationsanfragen versendet (DsiN, BBE) — Kontakte dokumentiert
+- [x] Technischer Stand: v0.3.0 mit 4 Checks, Web-UI, PDF, Formular-Check
+- [x] Parallele Förderoptionen identifiziert (DSEE, NLnet)
+- [x] Verworfene Alternativen dokumentiert
+
+### Noch offen — Kristijan muss liefern ❌
+
+- [ ] **Vollständige Namen** der vier Teammitglieder + Kurzprofile/Vorerfahrung
+- [ ] **Wer ist Person A (GF)?** — Name, Wohnort DE, Freistellungsplan vom Hauptjob
+- [ ] **Antworten von DsiN/BBE** — bei Zusage in Bewerbung aufnehmen; sonst Fallback-Verbände
+- [ ] **DSEE-Kontakt** aufbauen (Fördermittelwerkstatt Okt./Nov. 2026)
+- [ ] **Persönliche Motivation:** Kennt jemand Vereinsarbeit aus erster Hand?
+- [ ] **5–10 Vereine** für Praxistests benennen (Bekanntenkreis)
+- [ ] **Domain `vereinscheck.de`** — registriert? Wer hostet?
+- [ ] **Frühere Förderung** für VereinsCheck oder ähnliche Idee?
+- [ ] **Übergabe-Modus:** Wireframe/Mockup als Anhang
+- [ ] **3–5 dokumentierte Vereins-Scans** (Screenshots + kurze Fallstudie)
+
+### Vorhandene Entwürfe (extern, nicht im Repo)
+
+- `VereinsCheck-Bewerbung-PrototypeFund.md` — vollständiger Bewerbungsentwurf (DE)
+- `VereinsCheck-Application-English.md` — englische Version für Kolleg:innen in Deventer
+- `MitWirkung-Projektplan-KA154.md` — Erasmus+-Variante (zweitrangig)
 
 ---
 
-## 14. Prioritäten bis 30.11.2026
+## 14. Zeitplan bis zur Förderung
 
-1. **Übergabe-Modus skizzieren** (Wireframe reicht) — Innovations-Beweis
-2. **Verbands-LOI einholen** — auch informelle E-Mail von DsiN/BBE ist Gold wert
-3. **3–5 Vereins-Scans dokumentieren** — Screenshots + Fallstudie
-4. **Team-Profile + GbR-Konstellation** ausfüllen
+| Phase | Zeitraum | Aktion |
+|---|---|---|
+| Bewerbung | 01.10.–30.11.2026 | Antrag einreichen (Förderschwerpunkt Datensicherheit) |
+| Jury-Entscheidung | ca. Ende Jan. 2027 | Rückmeldung |
+| Bei Zusage | Feb.–Mai 2027 | Antragsworkshop, formaler Antrag ans BMFTR, **GbR gründen** |
+| Förderphase 1 | 01.06.–30.11.2027 | 6 Monate Entwicklung |
+| Second Stage (optional) | Dez. 2027 – März 2028 | +4 Monate, Jury-Präsentation |
+
+## 15. Prioritäten bis 30.11.2026
+
+1. **Bewerbungsentwurf mit echten Namen befüllen** — Platzhalter in `VereinsCheck-Bewerbung-PrototypeFund.md` ersetzen
+2. **Verbands-LOI einholen** — DsiN/BBE-Antworten nachfassen; Fallback Landessportbund
+3. **Übergabe-Modus skizzieren** (Wireframe reicht) — Innovations-Beweis für Jury
+4. **3–5 Vereins-Scans dokumentieren** — Screenshots + kurze Fallstudie
 5. **Second Stage** planen und mit beantragen
+6. **DSEE-Fördermittelwerkstatt** (Okt./Nov.) — Antragshilfe + Kontaktaufbau
