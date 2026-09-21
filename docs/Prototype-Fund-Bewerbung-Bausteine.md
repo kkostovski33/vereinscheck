@@ -340,7 +340,8 @@ Der Prüfkatalog zeigt der Jury **inhaltliche Tiefe**, nicht nur eine Idee:
 | „Nur ein Scanner" | Übergabe-Modus + Dialog (I/J) als Kern-Innovation |
 | WebPrüfer ähnlich | Enger Vereins-Fokus, E-Mail-Check, Wissensübergabe |
 | Keine Tests im Repo | M1 explizit pytest; bewusst erste Förder-Aufgabe |
-| Team-Profile fehlen | Namen, GitHub-Links, Motivation ergänzen |
+| Team-Profile fehlen (Namen noch offen) | Vier Namen + Kurzprofile bis Submit; GF/Freistellung benennen |
+| Keine Antwort DsiN/BBE (Stand 04.09.) | Nachfassen bis 15.10.; parallel Landessportbund anfragen |
 
 ---
 
