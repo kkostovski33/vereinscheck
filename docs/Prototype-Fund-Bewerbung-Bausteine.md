@@ -47,8 +47,8 @@ Web-Oberfläche und PDF-Bericht ist unter github.com/kkostovski33/vereinscheck
 wird im Arbeitsspeicher verarbeitet und verworfen.
 
 Ziel der Förderphase: Aus dem Prototyp ein robustes, laienfreundliches Werkzeug 
-machen, den Prüfkatalog (10 Bereiche, siehe Projektdokumentation) umsetzen und 
-über Dachverbände in die Breite tragen.
+machen, den Prüfkatalog schrittweise umsetzen (v1.0: 7 Prüfbereiche A–F plus 
+Übergabe-Modus I/J) und über Dachverbände in die Breite tragen.
 ```
 
 ---
@@ -217,13 +217,10 @@ für IT-Sicherheit. Kein Abo-Modell, keine Datensammlung.
 3. Person D: Datenschutz-Einwilligung-Heuristik
 4. Person A: Drittanbieter-Check + Praxistest gegen 5–10 echte Vereins-Websites
 
-**Geplant in der Förderphase (klar abgrenzbar):**
-1. Testabdeckung und Robustheit der Engine
-2. Prüfkatalog-Bereiche E, D (voll), F, I, J (noch nicht im Code)
-3. Browser-basierte Tracking-Prüfung (C5–C7)
-4. Barrierefreies Frontend + Praxistests mit echten Vereinen
-5. Lösungsdatenbank (anbieterspezifische Klickpfade)
-6. Verbands-Pilot und öffentliches Hosting
+**Geplant in der Förderphase (Tier 1 + 2, siehe §16):**
+1. **Tier 1:** E-Mail-Identität (E), Formular D1–D10 (D), Domain-Inventar (F), Dialog (I), Übergabe (J), Impressum/DSE (C6/C7), Lösungsdatenbank, pytest
+2. **Tier 2:** Browser-Tracking (C1–C5), SSL A4–A7, WCAG, Praxistests, Verbandspilot
+3. **Tier 3 (Second Stage):** Software-Aktualität (G), Datenspuren (H), WordPress-Plugin
 
 ---
 
