@@ -71,8 +71,8 @@ Web-Oberfläche und PDF-Bericht ist unter github.com/kkostovski33/vereinscheck
 wird im Arbeitsspeicher verarbeitet und verworfen.
 
 Ziel der Förderphase: Aus dem Prototyp ein robustes, laienfreundliches Werkzeug 
-machen, den Prüfkatalog (10 Bereiche, siehe Projektdokumentation) umsetzen und 
-über Dachverbände in die Breite tragen.
+machen, den Prüfkatalog schrittweise umsetzen (v1.0: 7 Prüfbereiche A–F plus 
+Übergabe-Modus I/J) und über Dachverbände in die Breite tragen.
 ```
 
 ---
@@ -83,34 +83,45 @@ machen, den Prüfkatalog (10 Bereiche, siehe Projektdokumentation) umsetzen und
 Aufbauend auf dem vorhandenen Prototyp (v0.3.0, GitHub) gliedert sich die 
 sechsmonatige Förderphase in Arbeitspakete für das vierköpfige Team:
 
-Monat 1–2 – Engine härten:
-Unit-/Integrationstests (pytest) für alle vier Checks. Scan-Logik anhand 
+Monat 1–2 – Engine härten + erste Erweiterungen:
+Unit-/Integrationstests (pytest) für alle Checks. Scan-Logik anhand 
 mindestens 50 realer Vereins-Websites verfeinern. Fehlertoleranz bei 
-nicht erreichbaren Seiten, Redirects, gemischten HTTP/HTTPS-Setups.
+Redirects und gemischten HTTP/HTTPS-Setups. Schnellgewinn C6/C7: 
+Impressum- und Datenschutzerklärungs-Erkennung (HTML). Bewertungslogik 
+Security-Header entschärfen (gelb statt Panik-Rot bei kleinen Vereinen).
 
-Monat 2–3 – Checks erweitern (Prüfkatalog E + D):
-Neues Modul E-Mail-Identität (SPF, DMARC, DKIM via DNS). Formular-Check 
-auf D1–D10 ausbauen (GET statt POST, Tracker auf Spendenseite, Zahlungsdienst-
-Einordnung). PDF plattformunabhängig machen (Font-Handling für Linux-Server).
+Monat 2–3 – Datensicherheits-Kern (Prüfkatalog E + D + F):
+Neues Modul E-Mail-Identität (SPF, DMARC, DKIM, MX — Schutz vor 
+gefälschten Vorstands-Mails). Formular-Check auf D1–D10 ausbauen 
+(GET statt POST, Tracker auf Spendenseite, Zahlungsdienst-Einordnung). 
+Domain-/Hosting-Inventar (Registrar, Ablaufdatum, Serverstandort). 
+PDF plattformunabhängig (Linux-Server).
 
-Monat 3–4 – Übergabe-Werkzeug (Prüfkatalog F, I, J – Alleinstellungsmerkmal):
-Domain-/Hosting-Inventar (WHOIS, Registrar, Ablaufdatum). Geführter Dialog 
-(10–15 Fragen in Vereinssprache) → Zugriffsregister. Übergabe-Modus mit 
-PDF-Export und Entzugs-Checkliste beim Vorstandswechsel. Usability-Test 
-mit 3 Vereinsvorständen.
+Monat 3–4 – Übergabe-Werkzeug (Prüfkatalog I + J — Alleinstellungsmerkmal):
+Geführter Dialog (10–15 Fragen in Vereinssprache) → Zugriffsregister 
+(Art.-30-nahe Übersicht, nur im Browser, kein Server-Speicher). 
+Übergabe-Modus: Entzugs-Checkliste pro Dienst, PDF-Übergabemappe 
+(Scan-Inventar + Dialog + offene Befunde + Unterschriftenfelder). 
+Usability-Test mit 3 Vereinsvorständen.
 
-Monat 4–5 – Frontend & Barrierefreiheit:
-Web-Oberfläche optimieren (Mobile, WCAG 2.1 AA Basics). Praxistests mit 
-5–10 Vereinen, Feedback einarbeiten. Lösungsdatenbank: 20 Starteinträge 
-(WordPress, IONOS, Strato, Twingle …).
+Monat 4–5 – Prüftiefe & Nutzererfahrung:
+Browser-basierte Tracking-Prüfung (Playwright, C1–C5 — grau statt grün 
+wenn nicht prüfbar). SSL-Ergänzungen A4–A7. WCAG 2.1 AA Basics 
+(Mobile, Tastatur, Kontrast). Lösungsdatenbank: 20 Starteinträge mit 
+anbieterspezifischen Klickpfaden (WordPress, IONOS, Strato, Twingle …). 
+Praxistests mit 5–10 Vereinen.
 
 Monat 5–6 – Verbreitung & Nachhaltigkeit:
 Pilot mit mindestens einem Dachverband. Self-Hosting-Doku für Verbände. 
-Öffentliches Hosting unter eigener Domain. Veröffentlichung v1.0.
+Öffentliches Hosting unter vereinscheck.de. Veröffentlichung v1.0 
+(7 Prüfbereiche: A–F automatisch + Dialog/Übergabe I/J).
 
-Meilensteine: M2 = getestete Engine; M3 = E-Mail- + Formular-Checks; 
-M4 = Übergabe-Modus; M5 = Praxistests abgeschlossen; M6 = v1.0 live.
+Meilensteine: M2 = getestete Engine + Impressum/DSE; M3 = E-Mail-, 
+Formular- und Domain-Checks; M4 = Übergabe-Modus; M5 = Browser-Tracking 
++ Praxistests; M6 = v1.0 live mit Verbandspilot.
 ```
+
+> **Feature-Tiers:** Vollständige Priorisierung → [`Prototype-Fund-Bewerbung-Bausteine.md`](./Prototype-Fund-Bewerbung-Bausteine.md) §16
 
 ---
 

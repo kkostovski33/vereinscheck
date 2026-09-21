@@ -106,12 +106,11 @@ wird, wie bewertet wird und welche Handlung folgt. Leitprinzipien: Vereinssprach
 vor Fachsprache, kein Befund ohne Handlung, nur passive Prüfungen, Grau nie 
 still zu Grün.
 
-Geplante Erweiterungen in der Förderphase (Priorität laut Prüfkatalog):
-- E: E-Mail-Identität (SPF/DMARC/DKIM) – hoher Erkenntniswert, DNS-only
-- D: Formular-Check auf D1–D10 ausbauen (Kern-Differenzierung)
-- F + I + J: Domain-Inventar, Zugangsregister-Dialog, Übergabe-Modus
-- C: Browser-basierte Tracking-Prüfung (Playwright), sonst grau statt grün
-- pytest-Testabdeckung, barrierefreies Frontend, EU-Hosting
+Geplante Erweiterungen in der Förderphase (Priorität laut Prüfkatalog, siehe §16):
+- Tier 1: E (E-Mail-Identität), D (D1–D10), F (Domain-Inventar), I+J (Übergabe),
+  C6/C7 (Impressum/DSE), Lösungsdatenbank, pytest
+- Tier 2: C1–C5 (Playwright), A4–A7 (SSL-Tiefe), WCAG, Verbandspilot
+- Tier 3 (Second Stage): G (Software-Aktualität), H (Datenspuren), WP-Plugin
 
 Technologie-Stack: Python, Flask, BeautifulSoup4, requests, fpdf2, pytest, 
 optional Playwright. Keine proprietären Abhängigkeiten. Modulare Struktur 
@@ -128,33 +127,42 @@ ermöglicht parallele Entwicklung und spätere Erweiterung durch Dachverbände.
 Aufbauend auf dem vorhandenen Prototyp (v0.3.0, GitHub) gliedert sich die 
 sechsmonatige Förderphase in Arbeitspakete für das vierköpfige Team:
 
-Monat 1–2 – Engine härten:
-Unit-/Integrationstests (pytest) für alle vier Checks. Scan-Logik anhand 
+Monat 1–2 – Engine härten + erste Erweiterungen:
+Unit-/Integrationstests (pytest) für alle Checks. Scan-Logik anhand 
 mindestens 50 realer Vereins-Websites verfeinern. Fehlertoleranz bei 
-nicht erreichbaren Seiten, Redirects, gemischten HTTP/HTTPS-Setups.
+Redirects und gemischten HTTP/HTTPS-Setups. Schnellgewinn C6/C7: 
+Impressum- und Datenschutzerklärungs-Erkennung (HTML). Bewertungslogik 
+Security-Header entschärfen (gelb statt Panik-Rot bei kleinen Vereinen).
 
-Monat 2–3 – Checks erweitern (Prüfkatalog E + D):
-Neues Modul E-Mail-Identität (SPF, DMARC, DKIM via DNS). Formular-Check 
-auf D1–D10 ausbauen (GET statt POST, Tracker auf Spendenseite, Zahlungsdienst-
-Einordnung). PDF plattformunabhängig machen (Font-Handling für Linux-Server).
+Monat 2–3 – Datensicherheits-Kern (Prüfkatalog E + D + F):
+Neues Modul E-Mail-Identität (SPF, DMARC, DKIM, MX — Schutz vor 
+gefälschten Vorstands-Mails). Formular-Check auf D1–D10 ausbauen 
+(GET statt POST, Tracker auf Spendenseite, Zahlungsdienst-Einordnung). 
+Domain-/Hosting-Inventar (Registrar, Ablaufdatum, Serverstandort). 
+PDF plattformunabhängig (Linux-Server).
 
-Monat 3–4 – Übergabe-Werkzeug (Prüfkatalog F, I, J – Alleinstellungsmerkmal):
-Domain-/Hosting-Inventar (WHOIS, Registrar, Ablaufdatum). Geführter Dialog 
-(10–15 Fragen in Vereinssprache) → Zugriffsregister. Übergabe-Modus mit 
-PDF-Export und Entzugs-Checkliste beim Vorstandswechsel. Usability-Test 
-mit 3 Vereinsvorständen.
+Monat 3–4 – Übergabe-Werkzeug (Prüfkatalog I + J — Alleinstellungsmerkmal):
+Geführter Dialog (10–15 Fragen in Vereinssprache) → Zugriffsregister 
+(Art.-30-nahe Übersicht, nur im Browser, kein Server-Speicher). 
+Übergabe-Modus: Entzugs-Checkliste pro Dienst, PDF-Übergabemappe 
+(Scan-Inventar + Dialog + offene Befunde + Unterschriftenfelder). 
+Usability-Test mit 3 Vereinsvorständen.
 
-Monat 4–5 – Frontend & Barrierefreiheit:
-Web-Oberfläche optimieren (Mobile, WCAG 2.1 AA Basics). Praxistests mit 
-5–10 Vereinen, Feedback einarbeiten. Lösungsdatenbank: 20 Starteinträge 
-(WordPress, IONOS, Strato, Twingle …).
+Monat 4–5 – Prüftiefe & Nutzererfahrung:
+Browser-basierte Tracking-Prüfung (Playwright, C1–C5 — grau statt grün 
+wenn nicht prüfbar). SSL-Ergänzungen A4–A7. WCAG 2.1 AA Basics 
+(Mobile, Tastatur, Kontrast). Lösungsdatenbank: 20 Starteinträge mit 
+anbieterspezifischen Klickpfaden (WordPress, IONOS, Strato, Twingle …). 
+Praxistests mit 5–10 Vereinen.
 
 Monat 5–6 – Verbreitung & Nachhaltigkeit:
 Pilot mit mindestens einem Dachverband. Self-Hosting-Doku für Verbände. 
-Öffentliches Hosting unter eigener Domain. Veröffentlichung v1.0.
+Öffentliches Hosting unter vereinscheck.de. Veröffentlichung v1.0 
+(7 Prüfbereiche: A–F automatisch + Dialog/Übergabe I/J).
 
-Meilensteine: M2 = getestete Engine; M3 = E-Mail- + Formular-Checks; 
-M4 = Übergabe-Modus; M5 = Praxistests abgeschlossen; M6 = v1.0 live.
+Meilensteine: M2 = getestete Engine + Impressum/DSE; M3 = E-Mail-, 
+Formular- und Domain-Checks; M4 = Übergabe-Modus; M5 = Browser-Tracking 
++ Praxistests; M6 = v1.0 live mit Verbandspilot.
 ```
 
 ---
@@ -413,3 +421,77 @@ Der Prüfkatalog zeigt der Jury **inhaltliche Tiefe**, nicht nur eine Idee:
 4. **3–5 Vereins-Scans dokumentieren** — Screenshots + kurze Fallstudie
 5. **Second Stage** planen und mit beantragen
 6. **DSEE-Fördermittelwerkstatt** (Okt./Nov.) — Antragshilfe + Kontaktaufbau
+
+---
+
+## 16. Feature-Erweiterung — Tier-Modell (Strategie)
+
+> **Leitplanke:** Mehr Tiefe im bestehenden Prüfkatalog — kein zweites Produkt.  
+> v0.3.0 = 4 Checks · v1.0-Ziel = **7 Prüfbereiche** (A–F automatisch + I/J Dialog/Übergabe).
+
+### Tier 1 — Must-have (6 Monate, in Meilensteinen verbindlich)
+
+| Feature | Vereinssprache | Innovation | Aufwand | Datensicherheit |
+|---|---|---|---|---|
+| **E — E-Mail-Identität** (E1–E7) | „Kann jemand in eurem Namen Mails verschicken?" | CEO-Fraud-Schutz fürs Ehrenamt; DNS-only, kein Login nötig | **S** | ✅ Kern |
+| **D — Formular D1–D10** | „Sind Spenden und Mitgliedsanträge sicher?" | Tracker auf Spendenseite (D8) — kein Header-Scanner liefert das | **M** | ✅ Kern |
+| **F — Domain-Inventar** | „Wem gehört eure Website — und läuft sie bald ab?" | Brücke vom Scan zum Übergabe-Werkzeug | **S** | ✅ |
+| **I — Geführter Dialog** | „Wer hat Zugang — und wo liegen eure Mitgliederdaten?" | Art.-30-nahes Verzeichnis ohne Anwalt; nur im Browser | **M** | ✅ Kern |
+| **J — Übergabe-Modus** | „Der Vorstand wechselt — was muss der Nachfolger wissen?" | **Alleinstellungsmerkmal** — Wissen überdauert Wechsel | **M** | ✅ Kern |
+| **C6/C7 — Impressum & DSE** | „Sind Pflichtseiten erreichbar?" | Schnellgewinn aus HTML; Abmahnrisiko sichtbar machen | **S** | ✅ |
+| **Lösungsdatenbank** (20 Einträge) | „Was kann ich tun — Schritt für Schritt bei meinem Anbieter?" | Burggraben: Klickpfade statt generischer Tipps | **M** | ✅ |
+| **pytest + Engine-Härtung** | (intern) | Glaubwürdigkeit gegenüber Jury („nur ein Hobby-Repo") | **M** | ✅ |
+
+### Tier 2 — High-impact „Wow" (6 Monate, im Plan — Jury-Story)
+
+| Feature | Vereinssprache | Innovation | Aufwand | Datensicherheit |
+|---|---|---|---|---|
+| **C1–C5 — Browser-Tracking** (Playwright) | „Wer bekommt mit, wer spendet?" | Ehrliche Prüfung statt falscher Grün-Befunde | **M/L** | ✅ |
+| **A4–A7 — SSL-Tiefe** | „Ist die Verschlüsselung wirklich aktuell?" | Mixed Content, TLS-Version — ohne Panik | **S** | ✅ |
+| **B — Bewertung entschärfen** | „Header fehlen — ist das schlimm?" | Gelb statt Rot bei Kleinstvereinen = Vertrauen | **S** | ✅ |
+| **WCAG 2.1 AA Basics** | Barrierefrei nutzbar für alle Vorstände | Public-Interest-Standard | **M** | ○ |
+| **Verbandspilot + Self-Hosting** | Multiplikator statt Einzelverein | Open Source als Verbands-Infrastruktur | **M** | ✅ |
+| **Praxistests** (5–10 Vereine) | Feedback aus erster Hand | Validierung der Vereinssprache | **M** | ✅ |
+| **PDF-Übergabemappe vollständig** | Eine Datei für den Nachfolger | Scan + Dialog + Checkliste in einem Export | **S** | ✅ |
+
+### Tier 3 — Second Stage / danach (nicht im Kernversprechen)
+
+| Feature | Warum später | Risiko wenn zu früh |
+|---|---|---|
+| **G — Software-Aktualität** (G1–G7) | Pfadliste konservativ; rechtlich heikel | „Angriffsscanner"-Vorwurf |
+| **H — Datenspuren** (H1–H4) | Hohe Fehlerkosten, viele Grau-Befunde | Falsche Alarme, Vertrauensverlust |
+| **WordPress-Plugin** | Verbreitung, nicht Kernfunktion | Scope-Explosion |
+| **Domain-Verifikation** (DNS-TXT) | Wichtig für Vollprüfung, aber UX-Komplexität | Verzögert Launch |
+| **E-Mail-Monitoring / Cron** | Kontinuierlicher Betrieb ≠ Prototyp | SaaS-Narrativ, Wartungslast |
+| **Wiedervorlage-Erinnerungen** | Nice-to-have nach etabliertem Tool | Push ohne Nutzerbasis |
+
+### Scope-Fallen — explizit NICHT versprechen
+
+- Penetration Testing, Fuzzing, Brute-Force (Prüfkatalog verbietet das)
+- Testdaten in fremde Formulare senden
+- Nutzerkonten, Scan-Historie, Cloud-Speicherung (bricht Privacy-by-Design)
+- KI-Chatbot, automatische Rechtsberatung
+- Mobile App, Mehrsprachigkeit, Enterprise-Dashboard
+- Vollautomatisches Art.-30-Dokument (nur „nahe Übersicht" aus Dialog)
+
+### 5 Features, die „mehr" fühlen lassen — ohne Produktwechsel
+
+1. **E-Mail-Identität** — neuer roter Befund, den jeder Schatzmeister versteht  
+2. **Formular D8** (Tracker auf Spendenseite) — schockiert Vorstände sofort  
+3. **Domain-Inventar + Ablaufdatum** — Existenzrisiko, nicht nur Technik  
+4. **Übergabe-Modus** — einziger Check, der den Vorstandswechsel adressiert  
+5. **Lösungsdatenbank** — „klick hier bei IONOS" statt generischem Rat  
+
+### Innovation in einem Satz (Pitch)
+
+> **VereinsCheck ist der erste Sicherheits-Check für Vereine, der Website-Prüfung (von HTTPS über Spendenformulare bis E-Mail-Schutz) mit einer übergabefähigen Datenschutz-Mappe für den Vorstandswechsel verbindet — ohne Vereinsdaten zu speichern.**
+
+### Optionaler Quick-Win vor Bewerbung (Code)
+
+| Maßnahme | Aufwand | Nutzen |
+|---|---|---|
+| `checks/email_check.py` Stub (SPF/DMARC per DNS) | ~2 h | 5. Check live → Pitch glaubwürdiger |
+| Wireframe Übergabe-Modus (3 Screens) | Person D | Innovations-Beweis ohne Implementierung |
+| 1 Fallstudie mit rotem E-Mail-Befund | ~30 min | Story für Feld „Gesellschaftliche Herausforderung" |
+
+→ E-Mail-Stub **nicht zwingend** — Prüfkatalog + Meilensteine reichen; Stub nur wenn vor Submit noch Kapazität.
