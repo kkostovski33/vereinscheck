@@ -200,8 +200,8 @@ Prüfkatalog G/H vorsichtig ausbauen.
 
 ## Anhänge (noch anlegen)
 
-- [ ] `docs/Pruefkatalog-v0.1.md` (aus Upload)
-- [ ] `docs/Übergabe-Modus-Spezifikation.md` + Wireframe PNG
+- [x] `docs/Pruefkatalog-v0.1.md`
+- [ ] `docs/Übergabe-Modus-Spezifikation.md` + Wireframe PNG (Friederike, 27.09.)
 - [ ] `docs/fallstudien/` — 3–5 Scan-Screenshots mit Kurztext
 - [ ] `[PLATZHALTER]` LOI von DsiN/BBE/Landessportbund (falls vorhanden)
 
